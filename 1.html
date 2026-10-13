@@ -1,0 +1,50 @@
+<button id="voiceTest" type="button"
+        style="margin:16px;padding:12px">
+  测试英语发音
+</button>
+<div id="voiceStatus" style="margin:16px"></div>
+
+<script>
+let testUtterance = null;
+
+document.getElementById("voiceTest").onclick = function () {
+  const status = document.getElementById("voiceStatus");
+
+  if (!("speechSynthesis" in window)) {
+    status.textContent = "当前环境没有语音合成接口";
+    return;
+  }
+
+  const synth = window.speechSynthesis;
+  const voices = synth.getVoices();
+  const english = voices.filter(v => /^en([-_]|$)/i.test(v.lang));
+
+  status.textContent =
+    "可用语音：" + voices.length +
+    "；英语语音：" + english.length +
+    "；已提交发音请求";
+
+  // 本次测试不调用 cancel，也不指定具体 voice
+  const u = new SpeechSynthesisUtterance("Hello. Good morning.");
+  testUtterance = u;
+  u.lang = "en-US";
+  u.rate = 1;
+  u.volume = 1;
+
+  u.onstart = () => {
+    status.textContent = "发音已开始；如果仍无声，请检查音量和蓝牙输出";
+  };
+
+  u.onend = () => {
+    status.textContent = "发音已结束";
+    testUtterance = null;
+  };
+
+  u.onerror = e => {
+    status.textContent = "发音失败：" + e.error;
+    testUtterance = null;
+  };
+
+  synth.speak(u);
+};
+</script>
