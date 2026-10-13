@@ -1,0 +1,3121 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>欧德优创-英语口语高频词 3000</title>
+<style>
+*{box-sizing:border-box}body{margin:0;font-family:"Microsoft YaHei",Arial,sans-serif;background:#eef3f9;color:#223}
+header{background:#1f4e79;color:#fff;padding:14px 20px;display:flex;flex-wrap:wrap;align-items:center;gap:12px}
+header h1{font-size:20px;margin:0 20px 0 0}
+nav button{background:transparent;border:1px solid #fff8;color:#fff;padding:8px 16px;border-radius:20px;cursor:pointer;font-size:15px;margin-right:6px}
+nav button.on{background:#fff;color:#1f4e79;font-weight:bold}
+main{max-width:860px;margin:20px auto;padding:0 14px}
+.sec{display:none}.sec.on{display:block}
+.tiers{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:14px}
+.tiers button{border:none;background:#fff;padding:8px 14px;border-radius:8px;cursor:pointer;box-shadow:0 1px 3px #0002;font-size:14px}
+.tiers button.on{background:#2e75b6;color:#fff}
+.card{background:#fff;border-radius:16px;box-shadow:0 4px 16px #0001;padding:30px;text-align:center;position:relative}
+.word{font-size:48px;font-weight:bold;color:#1f4e79;cursor:pointer;user-select:none;display:inline-block}
+.word:hover{color:#2e75b6}.spk{font-size:14px;color:#888;margin:4px 0 16px}
+.cn{font-size:24px;margin:10px 0}.ph{font-size:20px;color:#555;background:#f3f7fb;border-radius:10px;padding:10px;margin:14px auto;max-width:520px;cursor:pointer}
+.tag{position:absolute;top:12px;right:14px;font-size:13px;padding:3px 10px;border-radius:10px}
+.tag.l{background:#d8f0dc;color:#1b7a35}.tag.h{background:#fde2e2;color:#b02a2a;right:auto;left:14px}
+.btns{display:flex;flex-wrap:wrap;justify-content:center;gap:10px;margin-top:18px}
+.btns button,.jump button{border:none;padding:10px 18px;border-radius:8px;font-size:15px;cursor:pointer}
+.b1{background:#e7ecf2}.b2{background:#2e9e4f;color:#fff}.b3{background:#e8833a;color:#fff}.b4{background:#1f4e79;color:#fff}
+.b2.done{background:#a9d8b8}.b3.done{background:#f3c6a5}
+.info{text-align:center;color:#666;margin:12px 0;font-size:14px}
+.jump{display:flex;justify-content:center;gap:8px;align-items:center;flex-wrap:wrap;font-size:14px}
+.jump input{width:80px;padding:6px;border:1px solid #ccc;border-radius:6px}
+label{font-size:14px;cursor:pointer}
+.prog{background:#fff;border-radius:12px;padding:16px 20px;margin-bottom:12px;box-shadow:0 1px 4px #0001}
+.prog .t{display:flex;justify-content:space-between;margin-bottom:8px;font-size:16px}
+.bar{height:14px;background:#e4e9f0;border-radius:7px;overflow:hidden}.bar i{display:block;height:100%;background:linear-gradient(90deg,#2e75b6,#2e9e4f)}
+.sum{font-size:18px;text-align:center;margin:10px 0 20px}
+.empty{text-align:center;padding:50px;color:#888;background:#fff;border-radius:16px}
+.list{margin-top:16px;background:#fff;border-radius:12px;padding:12px;max-height:300px;overflow:auto;font-size:14px}
+.list span{display:inline-block;margin:4px;padding:4px 10px;background:#fde2e2;border-radius:12px;cursor:pointer}
+</style>
+</head>
+<body>
+<header><h1>📘 欧德优创-英语口语高频词学习</h1>
+<nav><button data-s="study" class="on">单词学习</button><button data-s="prog">学习进度</button><button data-s="hard">难词词库</button></nav></header>
+<main>
+<section id="study" class="sec on">
+<div class="tiers" id="tiers"></div>
+<div class="card" id="card"></div>
+<div class="info" id="info"></div>
+<div class="jump"><label><input type="checkbox" id="skip"> 跳过已学单词</label>
+&nbsp; 跳转到第 <input type="number" id="jn" min="1"> 个 <button class="b1" id="jb">跳转</button>
+<button class="b1" id="rnd">随机一个</button></div>
+</section>
+<section id="prog" class="sec"><div id="progBox"></div></section>
+<section id="hard" class="sec"><div id="hardBox"></div></section>
+</main>
+<script>
+const RAW=`
+200高频词|the|这个；那个（定冠词）|the same day
+200高频词|be|是；存在|be careful
+200高频词|I|我|I think so
+200高频词|you|你；你们|thank you
+200高频词|it|它|that's it
+200高频词|a|一个|a cup of tea
+200高频词|to|到；向|go to work
+200高频词|and|和；并且|you and me
+200高频词|that|那；那个|that's right
+200高频词|not|不|not bad
+200高频词|have|有；吃|have a nice day
+200高频词|do|做|do my homework
+200高频词|we|我们|we can do it
+200高频词|what|什么|what's up
+200高频词|of|……的|a lot of
+200高频词|in|在……里|in the morning
+200高频词|go|去|go home
+200高频词|get|得到；变得|get up
+200高频词|know|知道|you know
+200高频词|he|他|he is busy
+200高频词|she|她|she is nice
+200高频词|they|他们|they are coming
+200高频词|this|这；这个|this way
+200高频词|yeah|是啊（口语）|yeah, sure
+200高频词|oh|哦|oh my god
+200高频词|so|所以；如此|so good
+200高频词|can|能；可以|can I help you
+200高频词|for|为了；给|this is for you
+200高频词|on|在……上|on the table
+200高频词|just|只是；刚刚|just a moment
+200高频词|like|喜欢；像|I like it
+200高频词|will|将要|I will call you
+200高频词|my|我的|my friend
+200高频词|your|你的|your turn
+200高频词|me|我（宾格）|excuse me
+200高频词|with|和；带着|come with me
+200高频词|at|在（某处/时刻）|at home
+200高频词|no|不；没有|no problem
+200高频词|yes|是的|yes, please
+200高频词|but|但是|but why
+200高频词|there|那里|over there
+200高频词|all|所有；全部|all day
+200高频词|think|想；认为|I think so
+200高频词|well|好；嗯|well done
+200高频词|okay|好的|it's okay
+200高频词|right|对的；右边|all right
+200高频词|one|一；一个|one more time
+200高频词|here|这里|come here
+200高频词|now|现在|right now
+200高频词|want|想要|I want to go
+200高频词|say|说|say hello
+200高频词|see|看见；明白|see you later
+200高频词|come|来|come on
+200高频词|out|出去；在外|go out
+200高频词|up|向上|wake up
+200高频词|about|关于；大约|what about you
+200高频词|how|怎样|how are you
+200高频词|if|如果|if you like
+200高频词|would|会；愿意|would you like some tea
+200高频词|good|好的|good morning
+200高频词|time|时间；次|what time is it
+200高频词|really|真的|really good
+200高频词|mean|意思是|what do you mean
+200高频词|look|看|look at this
+200高频词|take|拿；花费|take a seat
+200高频词|make|做；使|make a call
+200高频词|thing|事情；东西|the same thing
+200高频词|people|人们|a lot of people
+200高频词|some|一些|some water
+200高频词|then|然后；那么|see you then
+200高频词|when|什么时候|when is it
+200高频词|where|哪里|where are you
+200高频词|why|为什么|why not
+200高频词|who|谁|who is it
+200高频词|from|来自|where are you from
+200高频词|or|或者|tea or coffee
+200高频词|an|一个（元音前）|an apple
+200高频词|by|通过；在旁边|by bus
+200高频词|because|因为|because of you
+200高频词|could|能够（委婉）|could you help me
+200高频词|should|应该|you should rest
+200高频词|need|需要|I need help
+200高频词|let|让|let's go
+200高频词|tell|告诉|tell me
+200高频词|thank|感谢|thank you very much
+200高频词|please|请|please sit down
+200高频词|sorry|对不起|I'm sorry
+200高频词|day|天；白天|have a good day
+200高频词|back|回来；后面|come back
+200高频词|too|也；太|me too
+200高频词|very|非常|very much
+200高频词|much|很多|how much
+200高频词|many|许多|how many
+200高频词|more|更多|one more
+200高频词|little|小的；一点|a little bit
+200高频词|big|大的|a big deal
+200高频词|new|新的|happy new year
+200高频词|old|老的；旧的|how old are you
+200高频词|man|男人|a nice man
+200高频词|woman|女人|a young woman
+200高频词|child|孩子|a little child
+200高频词|friend|朋友|my best friend
+200高频词|home|家|at home
+200高频词|house|房子|a big house
+200高频词|work|工作|go to work
+200高频词|school|学校|after school
+200高频词|eat|吃|eat out
+200高频词|drink|喝；饮料|drink some water
+200高频词|food|食物|fast food
+200高频词|water|水|a glass of water
+200高频词|love|爱|I love you
+200高频词|nice|好的；友善的|nice to meet you
+200高频词|great|很棒的|that's great
+200高频词|sure|当然；确定|sure, no problem
+200高频词|maybe|也许|maybe later
+200高频词|something|某事；某物|something to eat
+200高频词|nothing|什么都没有|nothing special
+200高频词|everything|一切|everything is fine
+200高频词|someone|某人|someone is coming
+200高频词|everyone|每个人|hi everyone
+200高频词|hello|你好|hello there
+200高频词|hi|嗨|hi, how are you
+200高频词|bye|再见|bye for now
+200高频词|today|今天|not today
+200高频词|tomorrow|明天|see you tomorrow
+200高频词|yesterday|昨天|yesterday morning
+200高频词|night|夜晚|good night
+200高频词|morning|早上|good morning
+200高频词|week|星期；周|next week
+200高频词|year|年|last year
+200高频词|again|再次|try again
+200高频词|always|总是|always on time
+200高频词|never|从不|never mind
+200高频词|sometimes|有时|sometimes I walk
+200高频词|still|仍然|still here
+200高频词|already|已经|already done
+200高频词|also|也|I also like it
+200高频词|only|只有|only one
+200高频词|even|甚至|even better
+200高频词|kind|种类；友好的|kind of
+200高频词|way|方法；路|by the way
+200高频词|lot|很多|a lot
+200高频词|bit|一点|a bit tired
+200高频词|feel|感觉|feel better
+200高频词|try|尝试|try it on
+200高频词|call|打电话；称呼|call me later
+200高频词|give|给|give me a hand
+200高频词|put|放|put it on
+200高频词|find|找到|find out
+200高频词|help|帮助|help me
+200高频词|talk|说话|talk to you later
+200高频词|ask|问|ask for help
+200高频词|wait|等待|wait a minute
+200高频词|stop|停止|stop it
+200高频词|start|开始|start now
+200高频词|keep|保持|keep going
+200高频词|leave|离开|leave me alone
+200高频词|stay|停留|stay home
+200高频词|buy|买|buy something
+200高频词|pay|付钱|pay the bill
+200高频词|open|打开|open the door
+200高频词|close|关闭；近的|close the window
+200高频词|sit|坐|sit down
+200高频词|stand|站|stand up
+200高频词|walk|走路|take a walk
+200高频词|run|跑|run fast
+200高频词|play|玩；播放|play games
+200高频词|watch|观看；手表|watch TV
+200高频词|read|读|read a book
+200高频词|write|写|write it down
+200高频词|listen|听|listen to music
+200高频词|hear|听见|nice to hear that
+200高频词|speak|说（语言）|speak English
+200高频词|understand|理解|I understand
+200高频词|remember|记得|remember me
+200高频词|forget|忘记|don't forget
+200高频词|happy|快乐的|happy birthday
+200高频词|sad|难过的|feel sad
+200高频词|tired|累的|so tired
+200高频词|hungry|饿的|I'm hungry
+200高频词|fine|好的；不错|I'm fine
+200高频词|bad|坏的|too bad
+200高频词|money|钱|save money
+200高频词|phone|电话；手机|on the phone
+200高频词|car|汽车|by car
+200高频词|room|房间|my room
+200高频词|door|门|knock on the door
+200高频词|name|名字|what's your name
+200高频词|family|家庭|my family
+200高频词|mom|妈妈|call mom
+200高频词|dad|爸爸|my dad
+200高频词|minute|分钟|just a minute
+200高频词|hour|小时|an hour ago
+200高频词|first|第一；首先|first time
+200高频词|last|最后的；上一个|last night
+200高频词|next|下一个|next time
+200高频词|other|其他的|the other day
+200高频词|same|相同的|the same to you
+200高频词|different|不同的|a different way
+200高频词|these|这些|these days
+500高频词|after|在……之后|after dinner
+500高频词|before|在……之前|before bed
+500高频词|into|进入|come into the room
+500高频词|over|结束；越过|game over
+500高频词|down|向下|calm down
+500高频词|off|离开；关掉|turn off
+500高频词|around|周围；大约|look around
+500高频词|than|比|better than
+500高频词|any|任何|any questions
+500高频词|every|每个|every day
+500高频词|each|每个|each other
+500高频词|both|两者都|both of us
+500高频词|own|自己的|on my own
+500高频词|most|最多；大多数|most people
+500高频词|such|这样的|such a good idea
+500高频词|which|哪个|which one
+500高频词|whose|谁的|whose bag
+500高频词|him|他（宾格）|tell him
+500高频词|her|她；她的|call her
+500高频词|them|他们（宾格）|meet them
+500高频词|us|我们（宾格）|join us
+500高频词|his|他的|his car
+500高频词|their|他们的|their house
+500高频词|our|我们的|our team
+500高频词|its|它的|its name
+500高频词|myself|我自己|by myself
+500高频词|yourself|你自己|help yourself
+500高频词|anything|任何事|anything else
+500高频词|anyone|任何人|anyone here
+500高频词|somewhere|某处|somewhere nice
+500高频词|anywhere|任何地方|go anywhere
+500高频词|everybody|每个人|everybody ready
+500高频词|place|地方|a nice place
+500高频词|life|生活；生命|real life
+500高频词|world|世界|around the world
+500高频词|country|国家；乡村|my country
+500高频词|city|城市|a big city
+500高频词|town|小镇|in town
+500高频词|street|街道|across the street
+500高频词|road|道路|on the road
+500高频词|shop|商店；购物|go to the shop
+500高频词|store|商店|grocery store
+500高频词|market|市场|the market
+500高频词|restaurant|餐厅|go to a restaurant
+500高频词|hotel|酒店|book a hotel
+500高频词|hospital|医院|go to hospital
+500高频词|doctor|医生|see a doctor
+500高频词|office|办公室|in the office
+500高频词|company|公司|a big company
+500高频词|job|工作|a good job
+500高频词|boss|老板|my boss
+500高频词|meeting|会议|have a meeting
+500高频词|problem|问题|no problem
+500高频词|question|问题；提问|good question
+500高频词|answer|回答；答案|answer the phone
+500高频词|idea|主意|good idea
+500高频词|reason|原因|for some reason
+500高频词|story|故事|a long story
+500高频词|word|单词|in other words
+500高频词|news|新闻；消息|good news
+500高频词|picture|图片；照片|take a picture
+500高频词|music|音乐|listen to music
+500高频词|movie|电影|watch a movie
+500高频词|game|游戏；比赛|play a game
+500高频词|book|书；预订|book a table
+500高频词|email|电子邮件|send an email
+500高频词|message|信息|leave a message
+500高频词|computer|电脑|use the computer
+500高频词|internet|互联网|on the internet
+500高频词|bus|公交车|take the bus
+500高频词|ticket|票|buy a ticket
+500高频词|trip|旅行|a business trip
+500高频词|travel|旅行|travel abroad
+500高频词|holiday|假期|on holiday
+500高频词|weekend|周末|this weekend
+500高频词|party|聚会|a birthday party
+500高频词|birthday|生日|happy birthday
+500高频词|gift|礼物|a birthday gift
+500高频词|breakfast|早餐|have breakfast
+500高频词|lunch|午餐|lunch break
+500高频词|dinner|晚餐|have dinner
+500高频词|coffee|咖啡|a cup of coffee
+500高频词|tea|茶|green tea
+500高频词|meat|肉|eat meat
+500高频词|fruit|水果|fresh fruit
+500高频词|table|桌子|on the table
+500高频词|chair|椅子|sit on the chair
+500高频词|bed|床|go to bed
+500高频词|window|窗户|open the window
+500高频词|kitchen|厨房|in the kitchen
+500高频词|bathroom|浴室；洗手间|use the bathroom
+500高频词|clothes|衣服|wash clothes
+500高频词|bag|包|a shopping bag
+500高频词|key|钥匙；关键|lose my key
+500高频词|baby|婴儿|a baby girl
+500高频词|boy|男孩|a little boy
+500高频词|girl|女孩|a nice girl
+500高频词|kid|小孩|the kids
+500高频词|son|儿子|my son
+500高频词|parent|父母|my parents
+500高频词|guy|家伙；伙计|you guys
+500高频词|person|人|a nice person
+500高频词|teacher|老师|my teacher
+500高频词|student|学生|a college student
+500高频词|class|班级；课|in class
+500高频词|lesson|课程|English lesson
+500高频词|test|测试|take a test
+500高频词|homework|家庭作业|do homework
+500高频词|English|英语|speak English
+500高频词|language|语言|a foreign language
+500高频词|body|身体|body language
+500高频词|head|头|head home
+500高频词|hand|手|give me a hand
+500高频词|eye|眼睛|keep an eye on
+500高频词|face|脸|wash your face
+500高频词|health|健康|good health
+500高频词|sick|生病的|feel sick
+500高频词|weather|天气|nice weather
+500高频词|hot|热的|so hot
+500高频词|cold|冷的；感冒|catch a cold
+500高频词|warm|温暖的|warm clothes
+500高频词|cool|凉爽的；酷|that's cool
+500高频词|long|长的|a long time
+500高频词|short|短的|in short
+500高频词|high|高的|high school
+500高频词|low|低的|low price
+500高频词|fast|快的|fast food
+500高频词|slow|慢的|slow down
+500高频词|easy|容易的|take it easy
+500高频词|hard|困难的；努力地|work hard
+500高频词|early|早的|get up early
+500高频词|late|晚的；迟到|be late
+500高频词|young|年轻的|young people
+500高频词|beautiful|美丽的|a beautiful day
+500高频词|pretty|漂亮的；相当|pretty good
+500高频词|cute|可爱的|so cute
+500高频词|funny|好笑的|a funny story
+500高频词|interesting|有趣的|an interesting book
+500高频词|boring|无聊的|so boring
+500高频词|busy|忙的|I'm busy
+500高频词|free|免费的；空闲的|free time
+500高频词|cheap|便宜的|too cheap
+500高频词|expensive|贵的|too expensive
+500高频词|important|重要的|very important
+500高频词|possible|可能的|as soon as possible
+500高频词|ready|准备好的|are you ready
+500高频词|real|真的|for real
+500高频词|true|真实的|that's true
+500高频词|wrong|错误的|what's wrong
+500高频词|best|最好的|do your best
+500高频词|better|更好的|get better
+500高频词|worse|更差的|even worse
+500高频词|whole|整个的|the whole day
+500高频词|full|满的|I'm full
+500高频词|empty|空的|an empty room
+500高频词|clean|干净的；打扫|clean the room
+500高频词|dirty|脏的|dirty clothes
+500高频词|quiet|安静的|be quiet
+500高频词|loud|大声的|too loud
+500高频词|safe|安全的|stay safe
+500高频词|afraid|害怕的|I'm afraid
+500高频词|worried|担心的|don't be worried
+500高频词|excited|兴奋的|so excited
+500高频词|angry|生气的|get angry
+500高频词|glad|高兴的|glad to see you
+500高频词|lucky|幸运的|lucky you
+500高频词|alone|独自|all alone
+500高频词|together|一起|work together
+500高频词|almost|几乎|almost done
+500高频词|enough|足够|that's enough
+500高频词|quite|相当|quite good
+500高频词|probably|可能|probably not
+500高频词|actually|实际上|actually, no
+500高频词|exactly|确切地；正是|exactly right
+500高频词|especially|尤其|especially today
+500高频词|soon|很快|see you soon
+500高频词|later|稍后|talk later
+500高频词|ago|以前|two days ago
+500高频词|once|一次|once a week
+500高频词|twice|两次|twice a day
+500高频词|often|经常|how often
+500高频词|usually|通常|I usually walk
+500高频词|ever|曾经|have you ever
+500高频词|yet|还；尚未|not yet
+500高频词|anyway|无论如何|thanks anyway
+500高频词|instead|代替|instead of
+500高频词|though|虽然；不过|nice, though
+500高频词|while|当……时|for a while
+500高频词|until|直到|until tomorrow
+500高频词|since|自从|since then
+500高频词|during|在……期间|during the day
+500高频词|through|穿过；通过|go through
+500高频词|across|穿过|across the road
+500高频词|without|没有|without you
+500高频词|between|在……之间|between us
+500高频词|under|在……下面|under the table
+500高频词|behind|在……后面|behind you
+500高频词|near|靠近|near here
+500高频词|far|远的|how far
+500高频词|inside|在里面|inside the box
+500高频词|outside|在外面|go outside
+500高频词|left|左边；离开了|turn left
+500高频词|middle|中间|in the middle
+500高频词|end|结束；末尾|in the end
+500高频词|part|部分|part of it
+500高频词|side|边；面|on my side
+500高频词|top|顶部|on top of
+500高频词|point|要点；指|that's the point
+500高频词|number|数字；号码|phone number
+500高频词|half|一半|half an hour
+500高频词|two|二|two people
+500高频词|three|三|three times
+500高频词|four|四|four seasons
+500高频词|five|五|five minutes
+500高频词|ten|十|ten dollars
+500高频词|hundred|一百|a hundred percent
+500高频词|thousand|一千|thousands of people
+500高频词|second|第二；秒|wait a second
+500高频词|month|月|next month
+500高频词|moment|片刻|at the moment
+500高频词|future|未来|in the future
+500高频词|past|过去|in the past
+500高频词|learn|学习|learn English
+500高频词|study|学习；研究|study hard
+500高频词|teach|教|teach me
+500高频词|show|展示；节目|show me
+500高频词|bring|带来|bring it here
+500高频词|carry|携带|carry a bag
+500高频词|send|发送|send a message
+500高频词|turn|转；轮到|your turn
+500高频词|move|移动；搬家|move on
+500高频词|change|改变；零钱|keep the change
+500高频词|happen|发生|what happened
+500高频词|believe|相信|believe me
+500高频词|hope|希望|I hope so
+500高频词|guess|猜|I guess so
+500高频词|wish|希望；祝愿|best wishes
+500高频词|decide|决定|decide later
+500高频词|choose|选择|choose one
+500高频词|agree|同意|I agree
+500高频词|worry|担心|don't worry
+500高频词|care|关心；在意|take care
+500高频词|miss|想念；错过|miss you
+500高频词|meet|遇见|nice to meet you
+500高频词|visit|拜访|visit friends
+500高频词|join|加入|join us
+500高频词|live|生活；居住|live here
+500高频词|die|死|die young
+500高频词|grow|成长|grow up
+500高频词|lose|丢失；输|lose weight
+500高频词|win|赢|win the game
+500高频词|fall|落下；秋天|fall asleep
+500高频词|sleep|睡觉|go to sleep
+500高频词|wake|醒来|wake up early
+500高频词|wear|穿；戴|wear a coat
+500高频词|wash|洗|wash your hands
+500高频词|cook|做饭|cook dinner
+500高频词|cut|切|cut it out
+500高频词|drive|驾驶|drive a car
+500高频词|ride|骑；乘|ride a bike
+500高频词|fly|飞|fly to Beijing
+500高频词|swim|游泳|go swimming
+500高频词|dance|跳舞|let's dance
+500高频词|sing|唱歌|sing a song
+500高频词|laugh|笑|make me laugh
+500高频词|cry|哭|don't cry
+500高频词|smile|微笑|keep smiling
+500高频词|hold|拿着；等一下|hold on
+500高频词|catch|抓住；赶上|catch the bus
+500高频词|pick|挑选；接|pick me up
+500高频词|fill|填充|fill in the form
+500高频词|check|检查|check it out
+500高频词|fix|修理|fix it
+500高频词|break|打破；休息|take a break
+500高频词|build|建造|build a house
+500高频词|spend|花费|spend money
+500高频词|cost|花费；价格|how much does it cost
+500高频词|sell|卖|sell it
+500高频词|order|订购；点菜|order food
+500高频词|share|分享|share with me
+500高频词|plan|计划|make a plan
+500高频词|finish|完成|finish work
+500高频词|continue|继续|continue reading
+500高频词|follow|跟随|follow me
+500高频词|lead|带领|lead the way
+500高频词|seem|似乎|seems good
+500高频词|become|成为|become friends
+500高频词|matter|要紧；事情|it doesn't matter
+500高频词|mind|介意；头脑|do you mind
+500高频词|sound|听起来；声音|sounds good
+500高频词|smell|闻；气味|smells good
+500高频词|taste|尝；味道|tastes great
+500高频词|enjoy|享受|enjoy yourself
+500高频词|prefer|更喜欢|I prefer tea
+500高频词|hate|讨厌|I hate it
+500高频词|expect|期待；预计|as expected
+500高频词|excuse|原谅；借口|excuse me
+500高频词|welcome|欢迎|you're welcome
+500高频词|goodbye|再见|say goodbye
+500高频词|sir|先生（尊称）|yes, sir
+1000高频词|egg|鸡蛋|boiled egg
+1000高频词|bread|面包|a slice of bread
+1000高频词|rice|米饭|fried rice
+1000高频词|fish|鱼|fish and chips
+1000高频词|apple|苹果|an apple a day
+1000高频词|chicken|鸡肉|fried chicken
+1000高频词|milk|牛奶|a glass of milk
+1000高频词|beer|啤酒|a bottle of beer
+1000高频词|wine|葡萄酒|red wine
+1000高频词|shirt|衬衫|a white shirt
+1000高频词|shoes|鞋子|put on your shoes
+1000高频词|dog|狗|walk the dog
+1000高频词|cat|猫|a cute cat
+1000高频词|daughter|女儿|my daughter
+1000高频词|husband|丈夫|her husband
+1000高频词|wife|妻子|his wife
+1000高频词|sister|姐妹|my little sister
+1000高频词|brother|兄弟|my big brother
+1000高频词|hair|头发|long hair
+1000高频词|heart|心|with all my heart
+1000高频词|pain|疼痛|in pain
+1000高频词|sun|太阳|in the sun
+1000高频词|rain|雨；下雨|in the rain
+1000高频词|red|红色的|a red dress
+1000高频词|blue|蓝色的|blue sky
+1000高频词|black|黑色的|black coffee
+1000高频词|white|白色的|white wine
+1000高频词|green|绿色的|green light
+1000高频词|color|颜色|favorite color
+1000高频词|clock|时钟|alarm clock
+1000高频词|Monday|星期一|on Monday
+1000高频词|Tuesday|星期二|next Tuesday
+1000高频词|Wednesday|星期三|on Wednesday
+1000高频词|Thursday|星期四|Thursday morning
+1000高频词|Friday|星期五|Friday night
+1000高频词|Saturday|星期六|on Saturday
+1000高频词|Sunday|星期日|on Sunday
+1000高频词|plane|飞机|by plane
+1000高频词|train|火车|by train
+1000高频词|letter|信；字母|write a letter
+1000高频词|paper|纸|a piece of paper
+1000高频词|throw|扔|throw away
+1000高频词|kiss|吻|kiss goodbye
+1000高频词|hug|拥抱|give me a hug
+1000高频词|lady|女士|ladies and gentlemen
+1000高频词|dangerous|危险的|it's dangerous
+1000高频词|congratulations|恭喜|congratulations on your success
+1000高频词|gentleman|先生；绅士|a real gentleman
+1000高频词|age|年龄|at your age
+1000高频词|air|空气|fresh air
+1000高频词|animal|动物|wild animal
+1000高频词|art|艺术|modern art
+1000高频词|ball|球|play ball
+1000高频词|bank|银行|go to the bank
+1000高频词|bar|酒吧|at the bar
+1000高频词|beach|海滩|go to the beach
+1000高频词|bike|自行车|ride a bike
+1000高频词|bill|账单|pay the bill
+1000高频词|bird|鸟|early bird
+1000高频词|blood|血|blood test
+1000高频词|boat|船|by boat
+1000高频词|bottle|瓶子|a bottle of water
+1000高频词|bottom|底部|at the bottom
+1000高频词|box|盒子|a gift box
+1000高频词|brain|大脑|use your brain
+1000高频词|bridge|桥|cross the bridge
+1000高频词|building|建筑|a tall building
+1000高频词|business|生意；业务|on business
+1000高频词|button|按钮；纽扣|press the button
+1000高频词|cake|蛋糕|birthday cake
+1000高频词|camera|相机|digital camera
+1000高频词|card|卡片|credit card
+1000高频词|case|情况；箱子|in case
+1000高频词|cash|现金|pay in cash
+1000高频词|center|中心|shopping center
+1000高频词|chance|机会|give me a chance
+1000高频词|cheese|奶酪|say cheese
+1000高频词|choice|选择|good choice
+1000高频词|cloud|云|cloudy sky
+1000高频词|club|俱乐部|join a club
+1000高频词|coat|外套|put on your coat
+1000高频词|college|大学|go to college
+1000高频词|corner|角落；拐角|around the corner
+1000高频词|couple|一对；几个|a couple of days
+1000高频词|course|课程；当然|of course
+1000高频词|cousin|堂/表兄弟姐妹|my cousin
+1000高频词|cup|杯子|a cup of tea
+1000高频词|customer|顾客|a regular customer
+1000高频词|date|日期；约会|go on a date
+1000高频词|deal|交易|it's a deal
+1000高频词|dish|盘子；菜肴|wash the dishes
+1000高频词|dollar|美元|ten dollars
+1000高频词|dream|梦想；做梦|sweet dreams
+1000高频词|dress|连衣裙；穿衣|get dressed
+1000高频词|ear|耳朵|all ears
+1000高频词|earth|地球|on earth
+1000高频词|east|东方|in the east
+1000高频词|mistake|错误|make a mistake
+1000高频词|example|例子|for example
+1000高频词|exercise|锻炼；练习|do exercise
+1000高频词|experience|经验；经历|work experience
+1000高频词|fact|事实|in fact
+1000高频词|farm|农场|on the farm
+1000高频词|fashion|时尚|in fashion
+1000高频词|field|田野；领域|in the field
+1000高频词|fight|打架；争吵|have a fight
+1000高频词|film|电影|watch a film
+1000高频词|finger|手指|cross my fingers
+1000高频词|fire|火|on fire
+1000高频词|floor|地板；楼层|on the second floor
+1000高频词|flower|花|a bunch of flowers
+1000高频词|foot|脚|on foot
+1000高频词|form|表格；形式|fill in the form
+1000高频词|front|前面|in front of
+1000高频词|fun|乐趣|have fun
+1000高频词|garden|花园|in the garden
+1000高频词|gas|汽油；煤气|gas station
+1000高频词|glass|玻璃；玻璃杯|a glass of water
+1000高频词|grade|年级；成绩|good grades
+1000高频词|ground|地面|on the ground
+1000高频词|group|组；团体|a group of people
+1000高频词|hall|大厅|city hall
+1000高频词|hat|帽子|wear a hat
+1000高频词|heat|热；加热|heat it up
+1000高频词|hill|小山|up the hill
+1000高频词|history|历史|in history
+1000高频词|hole|洞|a hole in the wall
+1000高频词|horse|马|ride a horse
+1000高频词|ice|冰|ice cream
+1000高频词|jacket|夹克|a warm jacket
+1000高频词|juice|果汁|orange juice
+1000高频词|lake|湖|by the lake
+1000高频词|land|陆地；降落|land safely
+1000高频词|law|法律|against the law
+1000高频词|leg|腿|break a leg
+1000高频词|level|水平；级别|high level
+1000高频词|library|图书馆|go to the library
+1000高频词|light|光；灯；轻的|turn on the light
+1000高频词|line|线；排队|wait in line
+1000高频词|list|清单|shopping list
+1000高频词|luck|运气|good luck
+1000高频词|machine|机器|washing machine
+1000高频词|mail|邮件|check the mail
+1000高频词|map|地图|look at the map
+1000高频词|match|比赛；火柴|a football match
+1000高频词|meal|一餐|have a meal
+1000高频词|medicine|药|take medicine
+1000高频词|member|成员|team member
+1000高频词|memory|记忆|good memory
+1000高频词|mile|英里|miles away
+1000高频词|mirror|镜子|look in the mirror
+1000高频词|mountain|山|climb a mountain
+1000高频词|mouth|嘴|shut your mouth
+1000高频词|nose|鼻子|blow your nose
+1000高频词|note|笔记；便条|take notes
+1000高频词|ocean|海洋|the Pacific Ocean
+1000高频词|oil|油|olive oil
+1000高频词|orange|橙子；橙色|orange juice
+1000高频词|page|页|turn the page
+1000高频词|pair|一双；一对|a pair of shoes
+1000高频词|park|公园；停车|park the car
+1000高频词|pen|钢笔|a pen and paper
+1000高频词|pencil|铅笔|pencil case
+1000高频词|pet|宠物|have a pet
+1000高频词|piece|片；块|a piece of cake
+1000高频词|pizza|披萨|order pizza
+1000高频词|plate|盘子|a plate of food
+1000高频词|police|警察|call the police
+1000高频词|pool|游泳池|swimming pool
+1000高频词|post|邮寄；帖子|post office
+1000高频词|price|价格|good price
+1000高频词|program|节目；程序|TV program
+1000高频词|pocket|口袋|in my pocket
+1000高频词|river|河|along the river
+1000高频词|rock|岩石；摇滚|rock music
+1000高频词|roof|屋顶|on the roof
+1000高频词|rule|规则|follow the rules
+1000高频词|salt|盐|a pinch of salt
+1000高频词|sand|沙子|on the sand
+1000高频词|sea|海|by the sea
+1000高频词|season|季节|four seasons
+1000高频词|seat|座位|take a seat
+1000高频词|sign|标志；签名|sign here
+1000高频词|size|尺寸|what size
+1000高频词|skin|皮肤|dry skin
+1000高频词|sky|天空|blue sky
+1000高频词|snow|雪|heavy snow
+1000高频词|song|歌曲|sing a song
+1000高频词|soup|汤|hot soup
+1000高频词|space|空间|outer space
+1000高频词|sport|运动|play sports
+1000高频词|spring|春天|in spring
+1000高频词|star|星星；明星|a movie star
+1000高频词|station|车站|train station
+1000高频词|step|步；台阶|step by step
+1000高频词|stone|石头|a stone wall
+1000高频词|stuff|东西（口语）|my stuff
+1000高频词|subject|科目；主题|change the subject
+1000高频词|sugar|糖|no sugar
+1000高频词|summer|夏天|summer vacation
+1000高频词|team|团队|team work
+1000高频词|teeth|牙齿|brush your teeth
+1000高频词|television|电视|watch television
+1000高频词|tree|树|under the tree
+1000高频词|trouble|麻烦|in trouble
+1000高频词|truck|卡车|drive a truck
+1000高频词|uncle|叔叔；舅舅|my uncle
+1000高频词|aunt|阿姨；姑姑|my aunt
+1000高频词|vacation|假期|on vacation
+1000高频词|village|村庄|a small village
+1000高频词|voice|声音|in a low voice
+1000高频词|wall|墙|on the wall
+1000高频词|west|西方|in the west
+1000高频词|wind|风|strong wind
+1000高频词|winter|冬天|in winter
+1000高频词|wood|木头|made of wood
+1000高频词|yard|院子|in the yard
+1000高频词|zoo|动物园|go to the zoo
+1000高频词|north|北方|in the north
+1000高频词|south|南方|down south
+1000高频词|autumn|秋天|in autumn
+1000高频词|grandma|奶奶；外婆|visit grandma
+1000高频词|grandpa|爷爷；外公|my grandpa
+1000高频词|neighbor|邻居|next-door neighbor
+1000高频词|partner|伙伴；搭档|business partner
+1000高频词|driver|司机|taxi driver
+1000高频词|nurse|护士|call the nurse
+1000高频词|taxi|出租车|take a taxi
+1000高频词|airport|机场|at the airport
+1000高频词|passport|护照|show your passport
+1000高频词|umbrella|雨伞|take an umbrella
+1000高频词|towel|毛巾|a clean towel
+1000高频词|soap|肥皂|wash with soap
+1000高频词|toilet|厕所|go to the toilet
+1000高频词|shower|淋浴|take a shower
+1000高频词|sofa|沙发|sit on the sofa
+1000高频词|lamp|台灯|turn on the lamp
+1000高频词|fridge|冰箱|in the fridge
+1000高频词|cupboard|橱柜|in the cupboard
+1000高频词|garage|车库|in the garage
+1000高频词|stairs|楼梯|go up the stairs
+1000高频词|elevator|电梯|take the elevator
+1000高频词|ceiling|天花板|on the ceiling
+1000高频词|blanket|毯子|a warm blanket
+1000高频词|pillow|枕头|a soft pillow
+1000高频词|sock|袜子|a pair of socks
+1000高频词|glove|手套|wear gloves
+1000高频词|belt|腰带|seat belt
+1000高频词|pants|裤子|a pair of pants
+1000高频词|jeans|牛仔裤|blue jeans
+1000高频词|skirt|裙子|a short skirt
+1000高频词|sweater|毛衣|a wool sweater
+1000高频词|accept|接受|accept the offer
+1000高频词|add|添加|add some sugar
+1000高频词|allow|允许|allow me
+1000高频词|appear|出现|appear suddenly
+1000高频词|apply|申请|apply for a job
+1000高频词|arrive|到达|arrive home
+1000高频词|avoid|避免|avoid traffic
+1000高频词|bake|烘焙|bake a cake
+1000高频词|begin|开始|begin with
+1000高频词|belong|属于|belong to me
+1000高频词|bite|咬|a bite to eat
+1000高频词|blow|吹|blow out the candles
+1000高频词|boil|煮沸|boil water
+1000高频词|borrow|借入|borrow a book
+1000高频词|bother|打扰|sorry to bother you
+1000高频词|breathe|呼吸|breathe deeply
+1000高频词|burn|燃烧；烧伤|burn the toast
+1000高频词|celebrate|庆祝|celebrate Christmas
+1000高频词|chat|聊天|have a chat
+1000高频词|cheer|欢呼；振作|cheer up
+1000高频词|climb|攀登|climb the stairs
+1000高频词|collect|收集|collect stamps
+1000高频词|compare|比较|compare prices
+1000高频词|complain|抱怨|complain about
+1000高频词|count|数；计算|count on me
+1000高频词|cover|覆盖|cover your mouth
+1000高频词|cross|穿过|cross the road
+1000高频词|deliver|递送|deliver food
+1000高频词|describe|描述|describe it
+1000高频词|discuss|讨论|discuss the plan
+1000高频词|draw|画|draw a picture
+1000高频词|drop|掉落|drop it
+1000高频词|earn|挣钱|earn money
+1000高频词|enter|进入|enter the room
+1000高频词|explain|解释|explain it to me
+1000高频词|fail|失败|fail the exam
+1000高频词|feed|喂|feed the cat
+1000高频词|fit|适合；合身|fit well
+1000高频词|forgive|原谅|forgive me
+1000高频词|hang|悬挂；闲逛|hang out
+1000高频词|hide|躲藏|hide and seek
+1000高频词|hit|打；击中|hit the road
+1000高频词|hurry|赶快|hurry up
+1000高频词|hurt|伤害；疼|it hurts
+1000高频词|improve|改善|improve your English
+1000高频词|include|包括|tax included
+1000高频词|introduce|介绍|let me introduce myself
+1000高频词|invite|邀请|invite friends
+1000高频词|jump|跳|jump up
+1000高频词|kick|踢|kick the ball
+1000高频词|knock|敲|knock on the door
+1000高频词|lend|借出|lend me a pen
+1000高频词|lie|躺；撒谎|lie down
+1000高频词|lift|举起；搭车|give me a lift
+1000高频词|lock|锁|lock the door
+1000高频词|mark|标记；分数|full marks
+1000高频词|marry|结婚|marry me
+1000高频词|mention|提到|don't mention it
+1000高频词|mix|混合|mix it up
+1000高频词|notice|注意到；通知|notice the sign
+1000高频词|offer|提供|special offer
+1000高频词|pack|打包|pack your bags
+1000高频词|paint|油漆；绘画|paint the wall
+1000高频词|pass|通过；传递|pass the salt
+1000高频词|perform|表演|perform on stage
+1000高频词|prepare|准备|prepare dinner
+1000高频词|press|按|press the button
+1000高频词|pretend|假装|pretend to sleep
+1000高频词|print|打印|print it out
+1000高频词|promise|承诺|I promise
+1000高频词|protect|保护|protect yourself
+1000高频词|prove|证明|prove it
+1000高频词|pull|拉|pull the door
+1000高频词|push|推|push the button
+1000高频词|raise|举起；抚养|raise your hand
+1000高频词|reach|到达；够到|reach the top
+1000高频词|realize|意识到|I realize that
+1000高频词|receive|收到|receive a gift
+1000高频词|recommend|推荐|recommend a book
+1000高频词|refuse|拒绝|refuse to go
+1000高频词|relax|放松|just relax
+1000高频词|rent|租|rent a car
+1000高频词|repair|修理|repair the car
+1000高频词|repeat|重复|repeat after me
+1000高频词|reply|回复|reply to the email
+1000高频词|report|报告|a news report
+1000高频词|rest|休息|take a rest
+1000高频词|return|返回|return home
+1000高频词|ring|响铃；戒指|ring the bell
+1000高频词|rush|匆忙|rush hour
+1000高频词|save|保存；节省|save money
+1000高频词|scare|惊吓|you scared me
+1000高频词|search|搜索|search online
+1000高频词|serve|服务；上菜|serve dinner
+1000高频词|set|设置；放置|set the table
+1000高频词|shake|摇动|shake hands
+1000高频词|shout|喊叫|don't shout
+1000高频词|shut|关上|shut up
+1000高频词|skip|跳过|skip breakfast
+1000高频词|smoke|吸烟；烟|no smoking
+1000高频词|solve|解决|solve the problem
+1000高频词|spell|拼写|how do you spell it
+1000高频词|stick|粘贴；坚持|stick to it
+1000高频词|suggest|建议|I suggest we go
+1000高频词|support|支持|thanks for your support
+1000高频词|suppose|猜想|I suppose so
+1000高频词|surprise|惊喜|what a surprise
+1000高频词|tear|撕；眼泪|in tears
+1000高频词|touch|触摸；联系|keep in touch
+1000高频词|trust|信任|trust me
+1000高频词|type|类型；打字|my type
+1000高频词|use|使用|use your phone
+1000高频词|vote|投票|vote for me
+1000高频词|waste|浪费|waste of time
+1000高频词|wonder|想知道|I wonder why
+1000高频词|yell|叫喊|don't yell at me
+1000高频词|able|能够的|be able to
+1000高频词|active|积极的|stay active
+1000高频词|amazing|令人惊叹的|that's amazing
+1000高频词|awesome|很棒的|you're awesome
+1000高频词|awful|糟糕的|that's awful
+1000高频词|asleep|睡着的|fall asleep
+1000高频词|awake|醒着的|wide awake
+1000高频词|brave|勇敢的|be brave
+1000高频词|bright|明亮的；聪明的|a bright future
+1000高频词|broken|坏了的|a broken heart
+1000高频词|careful|小心的|be careful
+1000高频词|certain|确定的|for certain
+1000高频词|clear|清楚的|is that clear
+1000高频词|comfortable|舒适的|feel comfortable
+1000高频词|common|常见的|common sense
+1000高频词|correct|正确的|that's correct
+1000高频词|crazy|疯狂的|you're crazy
+1000高频词|cheerful|快乐的|a cheerful smile
+1000高频词|dark|黑暗的|in the dark
+1000高频词|dead|死的|dead tired
+1000高频词|deep|深的|take a deep breath
+1000高频词|delicious|美味的|it's delicious
+1000高频词|difficult|困难的|very difficult
+1000高频词|dry|干的|dry clothes
+1000高频词|famous|著名的|a famous singer
+1000高频词|fat|胖的|get fat
+1000高频词|favorite|最喜欢的|my favorite food
+1000高频词|fresh|新鲜的|fresh air
+1000高频词|friendly|友好的|very friendly
+1000高频词|gentle|温柔的|be gentle
+1000高频词|heavy|重的|heavy rain
+1000高频词|healthy|健康的|eat healthy
+1000高频词|honest|诚实的|to be honest
+1000高频词|huge|巨大的|a huge mistake
+1000高频词|lazy|懒惰的|don't be lazy
+1000高频词|local|当地的|local food
+1000高频词|lonely|孤独的|feel lonely
+1000高频词|main|主要的|main road
+1000高频词|married|已婚的|get married
+1000高频词|modern|现代的|modern life
+1000高频词|narrow|窄的|a narrow road
+1000高频词|nervous|紧张的|feel nervous
+1000高频词|normal|正常的|back to normal
+1000高频词|perfect|完美的|perfect timing
+1000高频词|polite|礼貌的|be polite
+1000高频词|poor|贫穷的；可怜的|poor thing
+1000高频词|popular|流行的|very popular
+1000高频词|proud|骄傲的|proud of you
+1000高频词|public|公共的|public transport
+1000高频词|rich|富有的|get rich
+1000高频词|rude|粗鲁的|so rude
+1000高频词|serious|严肃的；认真的|are you serious
+1000高频词|sharp|锋利的；准时|at 8 sharp
+1000高频词|shy|害羞的|don't be shy
+1000高频词|silly|傻的|don't be silly
+1000高频词|simple|简单的|keep it simple
+1000高频词|single|单身的；单一的|single room
+1000高频词|small|小的|a small house
+1000高频词|smart|聪明的|so smart
+1000高频词|soft|柔软的|soft voice
+1000高频词|special|特别的|something special
+1000高频词|strange|奇怪的|that's strange
+1000高频词|strong|强壮的|strong coffee
+1000高频词|stupid|愚蠢的|a stupid question
+1000高频词|sweet|甜的|sweet dreams
+1000高频词|tall|高的|a tall man
+1000高频词|terrible|可怕的；很糟|terrible weather
+1000高频词|thick|厚的|a thick book
+1000高频词|thin|薄的；瘦的|too thin
+1000高频词|ugly|丑的|so ugly
+1000高频词|upset|难过的|don't be upset
+1000高频词|useful|有用的|very useful
+1000高频词|weak|虚弱的|feel weak
+1000高频词|weird|奇怪的|that's weird
+1000高频词|wet|湿的|wet paint
+1000高频词|wide|宽的|wide open
+1000高频词|wild|野生的|wild animals
+1000高频词|wonderful|精彩的|a wonderful time
+1000高频词|yummy|好吃的|so yummy
+1000高频词|above|在……上方|above all
+1000高频词|against|反对；靠着|against the wall
+1000高频词|along|沿着|come along
+1000高频词|among|在……之中|among friends
+1000高频词|anymore|不再|not anymore
+1000高频词|away|离开|go away
+1000高频词|besides|此外|besides that
+1000高频词|else|别的|what else
+1000高频词|everywhere|到处|everywhere I go
+1000高频词|forever|永远|forever young
+1000高频词|however|然而|however, it's late
+1000高频词|indeed|确实|yes indeed
+1000高频词|less|更少|less sugar
+1000高频词|nearly|几乎|nearly finished
+1000高频词|nobody|没有人|nobody knows
+1000高频词|none|没有一个|none of them
+1000高频词|otherwise|否则|otherwise we'll be late
+1000高频词|perhaps|也许|perhaps tomorrow
+1000高频词|quickly|快速地|come quickly
+1000高频词|rather|宁愿；相当|rather not
+1000高频词|somebody|某人|somebody help
+1000高频词|somehow|不知怎么地|somehow it worked
+1000高频词|sometime|某个时候|sometime next week
+1000高频词|straight|直接；笔直|go straight
+1000高频词|suddenly|突然|suddenly it rained
+1000高频词|tonight|今晚|see you tonight
+1000高频词|twelve|十二|twelve o'clock
+1000高频词|twenty|二十|twenty years old
+1000高频词|fifty|五十|fifty percent
+1000高频词|six|六|six o'clock
+1000高频词|seven|七|seven days
+1000高频词|eight|八|eight hours
+1000高频词|nine|九|nine to five
+1000高频词|eleven|十一|eleven players
+1000高频词|million|百万|a million dollars
+1000高频词|third|第三|the third time
+1000高频词|percent|百分之……|one hundred percent
+1000高频词|quarter|四分之一；一刻钟|a quarter past
+1000高频词|dozen|一打|a dozen eggs
+1000高频词|weekday|工作日|on weekdays
+1000高频词|noon|中午|at noon
+1000高频词|midnight|午夜|at midnight
+1000高频词|afternoon|下午|good afternoon
+1000高频词|evening|晚上|good evening
+1000高频词|calendar|日历|check the calendar
+1000高频词|January|一月|in January
+1000高频词|December|十二月|in December
+1000高频词|Christmas|圣诞节|merry Christmas
+1000高频词|present|礼物；现在|a birthday present
+1000高频词|favor|帮忙|do me a favor
+1000高频词|advice|建议|give me some advice
+1000高频词|information|信息|more information
+1000高频词|service|服务|customer service
+2000高频词|accident|事故|car accident
+2000高频词|account|账户|bank account
+2000高频词|action|行动|take action
+2000高频词|activity|活动|outdoor activity
+2000高频词|address|地址|home address
+2000高频词|adult|成年人|for adults only
+2000高频词|advantage|优势|take advantage of
+2000高频词|adventure|冒险|an adventure story
+2000高频词|advertisement|广告|TV advertisement
+2000高频词|afford|买得起|can't afford it
+2000高频词|agency|代理机构|travel agency
+2000高频词|alarm|闹钟；警报|set the alarm
+2000高频词|allergic|过敏的|allergic to nuts
+2000高频词|amount|数量|a large amount
+2000高频词|angle|角度|from this angle
+2000高频词|announce|宣布|announce the news
+2000高频词|annoying|烦人的|so annoying
+2000高频词|apartment|公寓|rent an apartment
+2000高频词|apologize|道歉|I apologize
+2000高频词|appointment|预约|make an appointment
+2000高频词|appreciate|感激|I appreciate it
+2000高频词|area|地区|in this area
+2000高频词|argue|争论|don't argue
+2000高频词|arm|手臂|arm in arm
+2000高频词|arrange|安排|arrange a meeting
+2000高频词|article|文章|read an article
+2000高频词|artist|艺术家|a famous artist
+2000高频词|attention|注意|pay attention
+2000高频词|attitude|态度|good attitude
+2000高频词|audience|观众|a big audience
+2000高频词|available|可用的；有空的|are you available
+2000高频词|average|平均的|on average
+2000高频词|award|奖|win an award
+2000高频词|aware|意识到的|be aware of
+2000高频词|background|背景|family background
+2000高频词|bakery|面包店|go to the bakery
+2000高频词|balance|平衡|keep balance
+2000高频词|balloon|气球|blow up a balloon
+2000高频词|band|乐队|a rock band
+2000高频词|bark|狗叫|dogs bark
+2000高频词|basket|篮子|a shopping basket
+2000高频词|battery|电池|low battery
+2000高频词|bean|豆|coffee beans
+2000高频词|bear|熊；忍受|can't bear it
+2000高频词|beard|胡子|grow a beard
+2000高频词|beauty|美丽|natural beauty
+2000高频词|beef|牛肉|beef noodles
+2000高频词|bell|铃|ring the bell
+2000高频词|benefit|好处|health benefits
+2000高频词|bet|打赌|I bet
+2000高频词|bitter|苦的|bitter taste
+2000高频词|blind|瞎的|blind date
+2000高频词|block|街区；阻挡|around the block
+2000高频词|board|板；登机|on board
+2000高频词|bone|骨头|break a bone
+2000高频词|bored|感到无聊的|I'm bored
+2000高频词|bowl|碗|a bowl of rice
+2000高频词|brand|品牌|a famous brand
+2000高频词|brush|刷子；刷|brush your teeth
+2000高频词|budget|预算|on a budget
+2000高频词|bug|虫子；故障|fix the bug
+2000高频词|burger|汉堡|a cheese burger
+2000高频词|butter|黄油|bread and butter
+2000高频词|cabin|小屋；客舱|a log cabin
+2000高频词|cafe|咖啡馆|meet at a cafe
+2000高频词|calm|平静的|calm down
+2000高频词|campus|校园|on campus
+2000高频词|cancel|取消|cancel the order
+2000高频词|candle|蜡烛|light a candle
+2000高频词|candy|糖果|a piece of candy
+2000高频词|cap|帽子|a baseball cap
+2000高频词|career|职业|career plan
+2000高频词|carpet|地毯|on the carpet
+2000高频词|cartoon|卡通|watch cartoons
+2000高频词|castle|城堡|an old castle
+2000高频词|cause|原因；导致|cause trouble
+2000高频词|celebration|庆祝|a big celebration
+2000高频词|cell|细胞；手机|cell phone
+2000高频词|century|世纪|this century
+2000高频词|ceremony|仪式|wedding ceremony
+2000高频词|challenge|挑战|accept the challenge
+2000高频词|champion|冠军|world champion
+2000高频词|channel|频道|change the channel
+2000高频词|character|性格；角色|main character
+2000高频词|charge|收费；充电|charge my phone
+2000高频词|chef|厨师|a great chef
+2000高频词|chest|胸部|chest pain
+2000高频词|chip|薯片；芯片|potato chips
+2000高频词|chocolate|巧克力|hot chocolate
+2000高频词|citizen|公民|a good citizen
+2000高频词|classmate|同学|my classmate
+2000高频词|climate|气候|climate change
+2000高频词|clinic|诊所|go to the clinic
+2000高频词|closet|衣橱|in the closet
+2000高频词|coach|教练|football coach
+2000高频词|coin|硬币|flip a coin
+2000高频词|collar|衣领|shirt collar
+2000高频词|comb|梳子|comb your hair
+2000高频词|comment|评论|no comment
+2000高频词|community|社区|local community
+2000高频词|compete|竞争|compete with
+2000高频词|complete|完成；完整的|complete the task
+2000高频词|concert|音乐会|go to a concert
+2000高频词|condition|条件；状况|in good condition
+2000高频词|confident|自信的|be confident
+2000高频词|confused|困惑的|I'm confused
+2000高频词|connect|连接|connect to Wi-Fi
+2000高频词|contact|联系|contact me
+2000高频词|contest|比赛|singing contest
+2000高频词|control|控制|under control
+2000高频词|conversation|对话|have a conversation
+2000高频词|cookie|饼干|chocolate cookie
+2000高频词|copy|复制；副本|make a copy
+2000高频词|corn|玉米|corn soup
+2000高频词|cotton|棉|cotton shirt
+2000高频词|cough|咳嗽|a bad cough
+2000高频词|counter|柜台|at the counter
+2000高频词|courage|勇气|have courage
+2000高频词|crowd|人群|in the crowd
+2000高频词|culture|文化|Chinese culture
+2000高频词|curious|好奇的|just curious
+2000高频词|current|当前的|current job
+2000高频词|curtain|窗帘|close the curtain
+2000高频词|cushion|靠垫|a soft cushion
+2000高频词|custom|习俗|local custom
+2000高频词|damage|损坏|serious damage
+2000高频词|danger|危险|in danger
+2000高频词|data|数据|data analysis
+2000高频词|deadline|截止日期|meet the deadline
+2000高频词|debt|债务|in debt
+2000高频词|decision|决定|make a decision
+2000高频词|degree|度；学位|30 degrees
+2000高频词|delay|延误|flight delay
+2000高频词|dentist|牙医|see a dentist
+2000高频词|department|部门|sales department
+2000高频词|deposit|押金；存款|pay a deposit
+2000高频词|desert|沙漠|in the desert
+2000高频词|design|设计|fashion design
+2000高频词|desk|书桌|at my desk
+2000高频词|dessert|甜点|for dessert
+2000高频词|detail|细节|in detail
+2000高频词|develop|发展|develop skills
+2000高频词|diary|日记|keep a diary
+2000高频词|dictionary|词典|look it up in a dictionary
+2000高频词|diet|饮食；节食|on a diet
+2000高频词|difference|差别|make a difference
+2000高频词|dining|用餐|dining room
+2000高频词|direction|方向|in the right direction
+2000高频词|dirt|污垢|covered in dirt
+2000高频词|discount|折扣|get a discount
+2000高频词|disease|疾病|heart disease
+2000高频词|distance|距离|long distance
+2000高频词|divide|分开|divide into groups
+2000高频词|document|文件|sign the document
+2000高频词|download|下载|download the app
+2000高频词|drawer|抽屉|in the drawer
+2000高频词|drug|药物；毒品|drug store
+2000高频词|duck|鸭子|roast duck
+2000高频词|dust|灰尘|dust the shelf
+2000高频词|duty|职责|on duty
+2000高频词|education|教育|higher education
+2000高频词|effort|努力|make an effort
+2000高频词|electric|电的|electric car
+2000高频词|emergency|紧急情况|in an emergency
+2000高频词|employee|员工|new employee
+2000高频词|energy|能量|full of energy
+2000高频词|engineer|工程师|software engineer
+2000高频词|entrance|入口|main entrance
+2000高频词|environment|环境|protect the environment
+2000高频词|equal|平等的|equal rights
+2000高频词|event|事件；活动|a big event
+2000高频词|exam|考试|pass the exam
+2000高频词|exchange|交换|exchange gifts
+2000高频词|exit|出口|emergency exit
+2000高频词|expert|专家|an expert in
+2000高频词|fair|公平的|that's not fair
+2000高频词|faith|信念|keep the faith
+2000高频词|fake|假的|fake news
+2000高频词|fan|粉丝；风扇|a big fan
+2000高频词|fancy|花哨的|fancy dress
+2000高频词|fault|过错|my fault
+2000高频词|fear|恐惧|no fear
+2000高频词|feeling|感觉|good feeling
+2000高频词|festival|节日|Spring Festival
+2000高频词|fever|发烧|have a fever
+2000高频词|file|文件|save the file
+2000高频词|final|最后的|final exam
+2000高频词|fitness|健身|fitness center
+2000高频词|flag|旗|national flag
+2000高频词|flat|公寓；平的|a flat tire
+2000高频词|flight|航班|book a flight
+2000高频词|flour|面粉|a bag of flour
+2000高频词|flu|流感|catch the flu
+2000高频词|focus|集中|focus on work
+2000高频词|fog|雾|thick fog
+2000高频词|folk|人们；民间的|folk music
+2000高频词|force|力量；强迫|force him
+2000高频词|foreign|外国的|foreign country
+2000高频词|forest|森林|in the forest
+2000高频词|fork|叉子|knife and fork
+2000高频词|fortune|运气；财富|good fortune
+2000高频词|freedom|自由|freedom of speech
+2000高频词|freeze|冻结|freeze to death
+2000高频词|frog|青蛙|a green frog
+2000高频词|furniture|家具|new furniture
+2000高频词|gap|缺口；差距|mind the gap
+2000高频词|gate|大门|at the gate
+2000高频词|gather|聚集|gather together
+2000高频词|general|一般的|in general
+2000高频词|generous|慷慨的|so generous
+2000高频词|ghost|鬼|ghost story
+2000高频词|giant|巨人；巨大的|a giant step
+2000高频词|goal|目标|reach the goal
+2000高频词|government|政府|local government
+2000高频词|graduate|毕业|graduate from college
+2000高频词|grass|草|on the grass
+2000高频词|greet|问候|greet guests
+2000高频词|grocery|杂货|grocery shopping
+2000高频词|guest|客人|a special guest
+2000高频词|guide|导游；指南|tour guide
+2000高频词|guitar|吉他|play the guitar
+2000高频词|gym|健身房|go to the gym
+2000高频词|habit|习惯|a good habit
+2000高频词|handsome|英俊的|a handsome man
+2000高频词|handle|处理；把手|handle it
+2000高频词|headache|头痛|have a headache
+2000高频词|heater|加热器|turn on the heater
+2000高频词|height|高度|what's your height
+2000高频词|helpful|有帮助的|very helpful
+2000高频词|hero|英雄|my hero
+2000高频词|hobby|爱好|my hobby
+2000高频词|hometown|家乡|my hometown
+2000高频词|honey|蜂蜜；亲爱的|honey, I'm home
+2000高频词|host|主人；主持|host a party
+2000高频词|humor|幽默|sense of humor
+2000高频词|hunt|打猎；寻找|job hunting
+2000高频词|ice cream|冰淇淋|chocolate ice cream
+2000高频词|identity|身份|ID card
+2000高频词|ill|生病的|fall ill
+2000高频词|image|形象；图像|public image
+2000高频词|imagine|想象|imagine that
+2000高频词|income|收入|monthly income
+2000高频词|increase|增加|increase the price
+2000高频词|industry|工业|car industry
+2000高频词|insect|昆虫|insect bite
+2000高频词|insurance|保险|health insurance
+2000高频词|interview|面试|job interview
+2000高频词|invitation|邀请|thanks for the invitation
+2000高频词|iron|铁；熨斗|iron clothes
+2000高频词|item|物品|each item
+2000高频词|jam|果酱；堵塞|traffic jam
+2000高频词|joke|笑话|tell a joke
+2000高频词|journey|旅程|a long journey
+2000高频词|judge|判断；法官|don't judge me
+2000高频词|jungle|丛林|in the jungle
+2000高频词|junk|垃圾|junk food
+2000高频词|knee|膝盖|on my knees
+2000高频词|knife|刀|a sharp knife
+2000高频词|label|标签|read the label
+2000高频词|lack|缺乏|lack of sleep
+2000高频词|ladder|梯子|climb the ladder
+2000高频词|laptop|笔记本电脑|use my laptop
+2000高频词|laundry|洗衣|do the laundry
+2000高频词|lawn|草坪|mow the lawn
+2000高频词|leader|领导|team leader
+2000高频词|leaf|叶子|green leaves
+2000高频词|leather|皮革|leather shoes
+2000高频词|lemon|柠檬|lemon tea
+2000高频词|license|执照|driver's license
+2000高频词|limit|限制|speed limit
+2000高频词|link|链接|click the link
+2000高频词|lip|嘴唇|read my lips
+2000高频词|liquid|液体|no liquids
+2000高频词|loan|贷款|bank loan
+2000高频词|location|位置|share your location
+2000高频词|loss|损失|weight loss
+2000高频词|luggage|行李|carry luggage
+2000高频词|magazine|杂志|fashion magazine
+2000高频词|magic|魔法|like magic
+2000高频词|manage|管理；设法|manage to do
+2000高频词|manager|经理|talk to the manager
+2000高频词|manner|方式；礼貌|table manners
+2000高频词|mask|面具；口罩|wear a mask
+2000高频词|material|材料|building material
+2000高频词|math|数学|math class
+2000高频词|meaning|意义|the meaning of life
+2000高频词|measure|测量|measure it
+2000高频词|media|媒体|social media
+2000高频词|menu|菜单|look at the menu
+2000高频词|mess|混乱|what a mess
+2000高频词|metal|金属|made of metal
+2000高频词|method|方法|a good method
+2000高频词|mood|心情|in a good mood
+2000高频词|mostly|主要地|mostly fine
+2000高频词|motor|马达|motor bike
+2000高频词|mouse|老鼠；鼠标|click the mouse
+2000高频词|movement|运动；动作|a quick movement
+2000高频词|museum|博物馆|visit the museum
+2000高频词|musician|音乐家|a great musician
+2000高频词|nail|指甲；钉子|nail polish
+2000高频词|napkin|餐巾|a paper napkin
+2000高频词|nation|国家；民族|the whole nation
+2000高频词|nature|自然|love nature
+2000高频词|neat|整洁的|neat and tidy
+2000高频词|neck|脖子|pain in the neck
+2000高频词|necklace|项链|a gold necklace
+2000高频词|needle|针|needle and thread
+2000高频词|negative|消极的|negative thinking
+2000高频词|nephew|侄子；外甥|my nephew
+2000高频词|niece|侄女；外甥女|my niece
+2000高频词|noise|噪音|make noise
+2000高频词|noodle|面条|a bowl of noodles
+2000高频词|notebook|笔记本|write in a notebook
+2000高频词|novel|小说|read a novel
+2000高频词|nut|坚果|nuts and seeds
+2000高频词|object|物体|a strange object
+2000高频词|officer|官员；警官|police officer
+2000高频词|online|在线|shop online
+2000高频词|opinion|意见|in my opinion
+2000高频词|opportunity|机会|a great opportunity
+2000高频词|option|选项|another option
+2000高频词|ordinary|普通的|an ordinary day
+2000高频词|organize|组织|organize a party
+2000高频词|outdoor|户外的|outdoor sports
+2000高频词|oven|烤箱|in the oven
+2000高频词|owner|主人|the owner
+2000高频词|package|包裹|send a package
+2000高频词|painter|画家|a famous painter
+2000高频词|pale|苍白的|look pale
+2000高频词|pan|平底锅|frying pan
+2000高频词|panda|熊猫|giant panda
+2000高频词|parade|游行|a holiday parade
+2000高频词|parking|停车|parking lot
+2000高频词|passenger|乘客|passenger seat
+2000高频词|password|密码|forget my password
+2000高频词|patient|耐心的；病人|be patient
+2000高频词|pattern|图案；模式|a nice pattern
+2000高频词|peace|和平|peace and quiet
+2000高频词|peach|桃子|a ripe peach
+2000高频词|pear|梨|a juicy pear
+2000高频词|pepper|胡椒|salt and pepper
+2000高频词|perfume|香水|wear perfume
+2000高频词|permission|许可|ask permission
+2000高频词|personal|个人的|personal life
+2000高频词|photo|照片|take a photo
+2000高频词|photographer|摄影师|a wedding photographer
+2000高频词|physical|身体的|physical exercise
+2000高频词|piano|钢琴|play the piano
+2000高频词|pie|馅饼|apple pie
+2000高频词|pig|猪|a little pig
+2000高频词|pill|药片|take a pill
+2000高频词|pilot|飞行员|airline pilot
+2000高频词|pink|粉色的|pink dress
+2000高频词|pity|遗憾|what a pity
+2000高频词|planet|行星|our planet
+2000高频词|plant|植物；种植|plant a tree
+2000高频词|plastic|塑料|plastic bag
+2000高频词|platform|站台；平台|platform 3
+2000高频词|pleasant|愉快的|a pleasant trip
+2000高频词|pleasure|乐趣|my pleasure
+2000高频词|plenty|大量|plenty of time
+2000高频词|poem|诗|write a poem
+2000高频词|pollution|污染|air pollution
+2000高频词|pond|池塘|in the pond
+2000高频词|pop|流行的|pop music
+2000高频词|population|人口|large population
+2000高频词|pork|猪肉|pork chop
+2000高频词|position|位置；职位|in position
+2000高频词|positive|积极的|stay positive
+2000高频词|potato|土豆|mashed potato
+2000高频词|pound|磅；英镑|ten pounds
+2000高频词|powder|粉末|baby powder
+2000高频词|power|力量；电力|power cut
+2000高频词|practice|练习|practice makes perfect
+2000高频词|praise|表扬|praise him
+2000高频词|pregnant|怀孕的|she's pregnant
+2000高频词|president|总统；总裁|the president
+2000高频词|pressure|压力|under pressure
+2000高频词|private|私人的|private room
+2000高频词|prize|奖品|win a prize
+2000高频词|produce|生产|produce goods
+2000高频词|product|产品|new product
+2000高频词|professor|教授|a college professor
+2000高频词|profit|利润|make a profit
+2000高频词|progress|进步|make progress
+2000高频词|project|项目|work on a project
+2000高频词|proper|适当的|proper clothes
+2000高频词|pumpkin|南瓜|pumpkin pie
+2000高频词|punish|惩罚|punish him
+2000高频词|pupil|小学生|a young pupil
+2000高频词|puppy|小狗|a cute puppy
+2000高频词|purple|紫色的|purple flowers
+2000高频词|purpose|目的|on purpose
+2000高频词|purse|钱包|lose my purse
+2000高频词|puzzle|谜题|solve a puzzle
+2000高频词|quality|质量|high quality
+2000高频词|quarrel|争吵|have a quarrel
+2000高频词|queue|排队|in a queue
+2000高频词|quick|快的|a quick look
+2000高频词|quit|放弃；辞职|quit smoking
+2000高频词|rabbit|兔子|a white rabbit
+2000高频词|race|赛跑；种族|win the race
+2000高频词|radio|收音机|listen to the radio
+2000高频词|railway|铁路|railway station
+2000高频词|rainbow|彩虹|a beautiful rainbow
+2000高频词|rainy|下雨的|a rainy day
+2000高频词|rate|比率|exchange rate
+2000高频词|raw|生的|raw meat
+2000高频词|razor|剃刀|electric razor
+2000高频词|reaction|反应|quick reaction
+2000高频词|recipe|食谱|a cake recipe
+2000高频词|record|记录；录音|break the record
+2000高频词|recycle|回收|recycle paper
+2000高频词|refrigerator|冰箱|put it in the refrigerator
+2000高频词|regret|后悔|no regrets
+2000高频词|regular|定期的；常规的|regular customer
+2000高频词|relationship|关系|a good relationship
+2000高频词|relative|亲戚|visit relatives
+2000高频词|remind|提醒|remind me
+2000高频词|remote|遥控器；遥远的|remote control
+2000高频词|remove|移除|remove it
+2000高频词|request|请求|a special request
+2000高频词|rescue|营救|rescue team
+2000高频词|research|研究|do research
+2000高频词|reservation|预订|make a reservation
+2000高频词|respect|尊重|show respect
+2000高频词|responsible|负责的|be responsible
+2000高频词|result|结果|the final result
+2000高频词|review|复习；评论|review lessons
+2000高频词|reward|奖励|a big reward
+2000高频词|rice cooker|电饭煲|use the rice cooker
+2000高频词|risk|风险|take a risk
+2000高频词|robot|机器人|a smart robot
+2000高频词|role|角色|play a role
+2000高频词|romantic|浪漫的|a romantic dinner
+2000高频词|rope|绳子|jump rope
+2000高频词|rose|玫瑰|a red rose
+2000高频词|round|圆的；一轮|round trip
+2000高频词|route|路线|bus route
+2000高频词|row|排；行|in a row
+2000高频词|rubbish|垃圾|take out the rubbish
+2000高频词|ruler|尺子|a long ruler
+2000高频词|salad|沙拉|fruit salad
+2000高频词|salary|工资|a high salary
+2000高频词|sale|销售；打折|on sale
+2000高频词|sauce|酱汁|tomato sauce
+2000高频词|sausage|香肠|hot sausage
+2000高频词|scarf|围巾|a warm scarf
+2000高频词|scene|场景|at the scene
+2000高频词|schedule|日程|busy schedule
+2000高频词|science|科学|science class
+2000高频词|scientist|科学家|a famous scientist
+2000高频词|scissors|剪刀|a pair of scissors
+2000高频词|score|分数|high score
+2000高频词|screen|屏幕|phone screen
+2000高频词|secret|秘密|keep a secret
+2000高频词|secretary|秘书|my secretary
+2000高频词|section|部分|this section
+2000高频词|security|安全|security check
+2000高频词|seed|种子|plant seeds
+2000高频词|select|选择|select one
+2000高频词|selfish|自私的|so selfish
+2000高频词|semester|学期|this semester
+2000高频词|sense|感觉；意义|make sense
+2000高频词|sentence|句子|a short sentence
+2000高频词|separate|分开的|separate rooms
+2000高频词|series|系列|TV series
+2000高频词|session|会议；一段时间|training session
+2000高频词|shade|阴凉处|in the shade
+2000高频词|shadow|影子|my shadow
+2000高频词|shame|羞耻；遗憾|what a shame
+2000高频词|shape|形状|in good shape
+2000高频词|shelf|架子|on the shelf
+2000高频词|shell|贝壳|sea shell
+2000高频词|shine|发光|the sun shines
+2000高频词|ship|船|by ship
+2000高频词|shock|震惊|in shock
+2000高频词|shoot|射击；拍摄|shoot a video
+2000高频词|shopping|购物|go shopping
+2000高频词|shore|岸|on the shore
+2000高频词|shoulder|肩膀|on my shoulder
+2000高频词|sight|视力；景象|out of sight
+2000高频词|signal|信号|no signal
+2000高频词|silence|沉默|in silence
+2000高频词|silk|丝绸|silk scarf
+2000高频词|silver|银|silver ring
+2000高频词|similar|相似的|similar to
+2000高频词|sink|水槽；下沉|kitchen sink
+2000高频词|skill|技能|language skills
+2000高频词|sleepy|困倦的|feel sleepy
+2000高频词|slice|片|a slice of pizza
+2000高频词|slim|苗条的|slim and fit
+2000高频词|slippers|拖鞋|wear slippers
+2000高频词|smooth|光滑的；顺利的|smooth trip
+2000高频词|snack|零食|have a snack
+2000高频词|snake|蛇|a big snake
+2000高频词|sneaker|运动鞋|new sneakers
+2000高频词|social|社会的；社交的|social life
+2000高频词|soldier|士兵|a brave soldier
+2000高频词|solution|解决方法|find a solution
+2000高频词|sore|疼痛的|sore throat
+2000高频词|soul|灵魂|body and soul
+2000高频词|sour|酸的|sour taste
+2000高频词|source|来源|news source
+2000高频词|souvenir|纪念品|buy souvenirs
+2000高频词|speech|演讲|give a speech
+2000高频词|speed|速度|full speed
+2000高频词|spicy|辣的|spicy food
+2000高频词|spider|蜘蛛|a big spider
+2000高频词|spirit|精神|team spirit
+2000高频词|spoon|勺子|a spoon of sugar
+2000高频词|spot|地点；斑点|on the spot
+2000高频词|square|广场；正方形|town square
+2000高频词|stadium|体育场|football stadium
+2000高频词|staff|员工|hotel staff
+2000高频词|stage|舞台；阶段|on stage
+2000高频词|stamp|邮票|collect stamps
+2000高频词|standard|标准|high standard
+2000高频词|statue|雕像|a bronze statue
+2000高频词|steak|牛排|a juicy steak
+2000高频词|steam|蒸汽|steamed fish
+2000高频词|stomach|胃|stomach ache
+2000高频词|storm|暴风雨|a big storm
+2000高频词|stove|炉子|on the stove
+2000高频词|strawberry|草莓|strawberry jam
+2000高频词|stress|压力|under stress
+2000高频词|string|绳子；弦|a piece of string
+2000高频词|structure|结构|sentence structure
+2000高频词|style|风格|my style
+2000高频词|success|成功|great success
+2000高频词|suit|西装；适合|suit you
+2000高频词|suitcase|手提箱|pack a suitcase
+2000高频词|sunny|晴朗的|a sunny day
+2000高频词|supermarket|超市|go to the supermarket
+2000高频词|surface|表面|on the surface
+2000高频词|survey|调查|do a survey
+2000高频词|sweat|汗|no sweat
+2000高频词|swing|秋千；摇摆|on the swing
+2000高频词|symbol|象征|a symbol of love
+2000高频词|system|系统|the system
+2000高频词|tablet|平板电脑；药片|on my tablet
+2000高频词|tail|尾巴|wag its tail
+2000高频词|talent|天赋|a natural talent
+2000高频词|tap|水龙头；轻拍|tap water
+2000高频词|target|目标|hit the target
+2000高频词|task|任务|a hard task
+2000高频词|tax|税|tax free
+2000高频词|teenager|青少年|a teenager
+2000高频词|temperature|温度|take your temperature
+2000高频词|tennis|网球|play tennis
+2000高频词|tent|帐篷|set up a tent
+2000高频词|term|学期；术语|this term
+2000高频词|text|文本；发短信|text me
+2000高频词|theater|剧院|movie theater
+2000高频词|thief|小偷|catch the thief
+2000高频词|thirsty|口渴的|I'm thirsty
+2000高频词|thought|想法|good thought
+2000高频词|throat|喉咙|sore throat
+2000高频词|thunder|雷|thunder and lightning
+2000高频词|tidy|整洁的|tidy up
+2000高频词|tie|领带；系|tie your shoes
+2000高频词|tiger|老虎|a big tiger
+2000高频词|tiny|极小的|a tiny bit
+2000高频词|tip|小费；提示|leave a tip
+2000高频词|tire|轮胎|flat tire
+2000高频词|title|标题|the title
+2000高频词|toast|吐司；干杯|propose a toast
+2000高频词|tomato|西红柿|tomato soup
+2000高频词|tongue|舌头|mother tongue
+2000高频词|tool|工具|a useful tool
+2000高频词|tooth|牙齿|tooth brush
+2000高频词|topic|话题|change the topic
+2000高频词|total|总的|in total
+2000高频词|tour|旅游|a city tour
+2000高频词|tourist|游客|tourist attraction
+2000高频词|tower|塔|a tall tower
+2000高频词|toy|玩具|toy car
+2000高频词|track|跑道；轨迹|running track
+2000高频词|trade|贸易|trade fair
+2000高频词|tradition|传统|old tradition
+2000高频词|traffic|交通|heavy traffic
+2000高频词|traffic light|红绿灯|stop at the traffic light
+2000高频词|training|培训|job training
+2000高频词|translate|翻译|translate it
+2000高频词|trash|垃圾|take out the trash
+2000高频词|treat|对待；请客|my treat
+2000高频词|trick|把戏|trick or treat
+2000高频词|tune|曲调|in tune
+2000高频词|tunnel|隧道|through the tunnel
+2000高频词|twin|双胞胎|twin brother
+2000高频词|underwear|内衣|clean underwear
+2000高频词|uniform|制服|school uniform
+2000高频词|union|联盟|student union
+2000高频词|unit|单元|unit one
+2000高频词|universe|宇宙|the universe
+2000高频词|university|大学|go to university
+2000高频词|upstairs|楼上|go upstairs
+2000高频词|downstairs|楼下|come downstairs
+2000高频词|user|用户|new user
+2000高频词|valley|山谷|in the valley
+2000高频词|value|价值|good value
+2000高频词|van|面包车|a white van
+2000高频词|vegetable|蔬菜|eat vegetables
+2000高频词|version|版本|new version
+2000高频词|video|视频|watch a video
+2000高频词|view|景色；观点|a nice view
+2000高频词|violin|小提琴|play the violin
+2000高频词|visitor|访客|welcome visitors
+2000高频词|volume|音量|turn up the volume
+2000高频词|volunteer|志愿者|be a volunteer
+2000高频词|waiter|服务员|ask the waiter
+2000高频词|waitress|女服务员|call the waitress
+2000高频词|wallet|钱包|lose my wallet
+2000高频词|warn|警告|warn you
+2000高频词|wave|波浪；挥手|wave goodbye
+2000高频词|wealth|财富|health and wealth
+2000高频词|website|网站|visit the website
+2000高频词|wedding|婚礼|wedding dress
+2000高频词|weight|体重|lose weight
+2000高频词|wheel|轮子|steering wheel
+2000高频词|whisper|低语|whisper to me
+2000高频词|wing|翅膀|chicken wings
+2000高频词|winner|获胜者|the winner
+2000高频词|wire|电线|a wire
+2000高频词|wise|明智的|a wise choice
+2000高频词|wool|羊毛|wool sweater
+2000高频词|worker|工人|a hard worker
+2000高频词|workshop|研讨会；车间|join a workshop
+2000高频词|wound|伤口|a deep wound
+2000高频词|wrist|手腕|on my wrist
+2000高频词|writer|作家|a famous writer
+2000高频词|yellow|黄色的|yellow light
+2000高频词|youth|青春|in my youth
+2000高频词|ability|能力|the ability to
+2000高频词|absent|缺席的|absent from school
+2000高频词|accent|口音|a strong accent
+2000高频词|achieve|实现|achieve your goal
+2000高频词|admire|钦佩|I admire you
+2000高频词|admit|承认|admit it
+2000高频词|adopt|收养；采用|adopt a dog
+2000高频词|advance|前进；提前|in advance
+2000高频词|agent|代理人|travel agent
+2000高频词|aim|目标；瞄准|aim high
+2000高频词|alive|活着的|still alive
+2000高频词|amaze|使惊奇|amaze me
+2000高频词|ancient|古老的|ancient history
+2000高频词|ankle|脚踝|twist my ankle
+2000高频词|anniversary|周年纪念|wedding anniversary
+2000高频词|annual|每年的|annual leave
+2000高频词|anxious|焦虑的|feel anxious
+2000高频词|apart|分开|fall apart
+2000高频词|app|应用程序|download an app
+2000高频词|appetite|胃口|good appetite
+2000高频词|applause|掌声|a big applause
+2000高频词|approach|方法；接近|a new approach
+2000高频词|approve|批准|approve the plan
+2000高频词|argument|争论|have an argument
+2000高频词|arrest|逮捕|under arrest
+2000高频词|arrival|到达|arrival time
+2000高频词|ash|灰|cigarette ash
+2000高频词|assist|协助|assist you
+2000高频词|athlete|运动员|a great athlete
+2000高频词|atmosphere|气氛|a friendly atmosphere
+2000高频词|attend|参加|attend a meeting
+2000高频词|attract|吸引|attract attention
+2000高频词|author|作者|a famous author
+2000高频词|automatic|自动的|automatic door
+2000高频词|avenue|大街|Fifth Avenue
+2000高频词|awkward|尴尬的|an awkward moment
+2000高频词|backpack|背包|carry a backpack
+2000高频词|bacon|培根|bacon and eggs
+2000高频词|badly|严重地|badly hurt
+2000高频词|baggage|行李|baggage claim
+2000高频词|bamboo|竹子|bamboo forest
+2000高频词|banana|香蕉|a bunch of bananas
+2000高频词|bandage|绷带|put on a bandage
+2000高频词|barber|理发师|go to the barber
+2000高频词|basic|基本的|basic skills
+2000高频词|basketball|篮球|play basketball
+2000高频词|bath|洗澡|take a bath
+2000高频词|bay|海湾|by the bay
+2000高频词|bedroom|卧室|in the bedroom
+2000高频词|bee|蜜蜂|busy as a bee
+2000高频词|behave|表现|behave yourself
+2000高频词|belief|信念|strong belief
+2000高频词|bench|长椅|sit on the bench
+2000高频词|berry|浆果|fresh berries
+2000高频词|beside|在旁边|sit beside me
+2000高频词|beyond|超出|beyond belief
+2000高频词|billion|十亿|a billion people
+2000高频词|biscuit|饼干|tea and biscuits
+2000高频词|blame|责备|don't blame me
+2000高频词|bless|保佑|bless you
+2000高频词|blog|博客|write a blog
+2000高频词|blouse|女衬衫|a silk blouse
+2000高频词|boot|靴子|a pair of boots
+2000高频词|border|边界|cross the border
+2000高频词|boss's|老板的|the boss's office
+2000高频词|bow|鞠躬；弓|take a bow
+2000高频词|brake|刹车|hit the brake
+2000高频词|branch|树枝；分店|a bank branch
+2000高频词|breath|呼吸|out of breath
+2000高频词|breeze|微风|a cool breeze
+2000高频词|brick|砖|brick wall
+2000高频词|bride|新娘|the bride
+2000高频词|brief|简短的|in brief
+2000高频词|broadcast|广播|live broadcast
+2000高频词|brochure|小册子|travel brochure
+2000高频词|brunch|早午餐|Sunday brunch
+2000高频词|bucket|桶|a bucket of water
+2000高频词|bump|撞；肿块|bump into
+2000高频词|bunch|一串；一束|a bunch of flowers
+2000高频词|burst|爆裂|burst into tears
+2000高频词|bush|灌木|behind the bush
+2000高频词|businessman|商人|a successful businessman
+2000高频词|cabbage|卷心菜|cabbage soup
+2000高频词|cable|电缆|cable TV
+2000高频词|calculate|计算|calculate the cost
+2000高频词|calorie|卡路里|low calorie
+2000高频词|campaign|运动；活动|a campaign
+2000高频词|camping|露营|go camping
+2000高频词|canal|运河|along the canal
+2000高频词|cancer|癌症|lung cancer
+2000高频词|capital|首都；资本|capital city
+2000高频词|carrot|胡萝卜|carrot cake
+2000高频词|cartoonist|漫画家|a famous cartoonist
+2000高频词|cashier|收银员|pay the cashier
+2000高频词|casual|随意的|casual clothes
+2000高频词|cave|洞穴|a dark cave
+2000高频词|celebrity|名人|a famous celebrity
+2000高频词|cereal|麦片|a bowl of cereal
+2000高频词|certificate|证书|birth certificate
+2000高频词|chain|链子；连锁|chain store
+2000高频词|chalk|粉笔|a piece of chalk
+2000高频词|cheek|脸颊|kiss on the cheek
+2000高频词|chemistry|化学|chemistry class
+2000高频词|cherry|樱桃|cherry blossom
+2000高频词|chess|国际象棋|play chess
+2000高频词|childhood|童年|happy childhood
+2000高频词|chin|下巴|chin up
+2000高频词|chopsticks|筷子|use chopsticks
+2000高频词|cinema|电影院|go to the cinema
+2000高频词|circle|圆圈|in a circle
+2000高频词|cigarette|香烟|smoke a cigarette
+2000高频词|claim|声称；索取|baggage claim
+2000高频词|clap|拍手|clap your hands
+2000高频词|clerk|职员|a bank clerk
+2000高频词|clever|聪明的|a clever idea
+2000高频词|click|点击|click here
+2000高频词|client|客户|meet a client
+2000高频词|cliff|悬崖|on the cliff
+2000高频词|closed|关闭的|the shop is closed
+2000高频词|cloth|布|a piece of cloth
+2000高频词|coast|海岸|along the coast
+2000高频词|cocktail|鸡尾酒|cocktail party
+2000高频词|code|代码；密码|zip code
+2000高频词|colleague|同事|my colleague
+2000高频词|column|专栏；柱|a newspaper column
+2000高频词|comedy|喜剧|a romantic comedy
+2000高频词|comfort|安慰|comfort food
+2000高频词|commercial|商业的；广告|TV commercial
+2000高频词|compass|指南针|use a compass
+2000高频词|complex|复杂的|a complex problem
+2000高频词|concern|关心；担忧|no concern
+2000高频词|conference|会议|a press conference
+2000高频词|confirm|确认|confirm the booking
+2000高频词|congrats|恭喜（口语）|congrats on your new job
+2000高频词|consider|考虑|consider it
+2000高频词|contain|包含|contain sugar
+2000高频词|content|内容；满意的|feel content
+2000高频词|continent|大陆|the Asian continent
+2000高频词|contract|合同|sign a contract
+2000高频词|cooker|炊具|pressure cooker
+2000高频词|cooking|烹饪|good at cooking
+2000高频词|costume|服装|Halloween costume
+2000高频词|cottage|小屋|a country cottage
+2000高频词|court|法院；球场|tennis court
+2000高频词|crab|螃蟹|steamed crab
+2000高频词|crash|撞车|car crash
+2000高频词|cream|奶油|ice cream
+2000高频词|create|创造|create something new
+2000高频词|credit|信用|credit card
+2000高频词|crime|犯罪|commit a crime
+2000高频词|crisis|危机|in crisis
+2000高频词|cruel|残忍的|so cruel
+2000高频词|cucumber|黄瓜|cool as a cucumber
+2000高频词|cure|治愈|cure the disease
+2000高频词|curry|咖喱|chicken curry
+2000高频词|curve|曲线|a sharp curve
+2000高频词|cycle|骑车；循环|cycle to work
+2000高频词|daily|每日的|daily life
+2000高频词|dairy|乳制品|dairy products
+2000高频词|dam|水坝|a big dam
+2000高频词|damp|潮湿的|damp clothes
+2000高频词|darling|亲爱的|my darling
+2000高频词|dash|猛冲|make a dash
+2000高频词|dawn|黎明|at dawn
+2000高频词|deaf|聋的|deaf ears
+2000高频词|dear|亲爱的|oh dear
+2000高频词|decorate|装饰|decorate the room
+2000高频词|defend|保护；辩护|defend yourself
+2000高频词|define|定义|define the word
+2000高频词|delete|删除|delete the file
+2000高频词|delight|高兴|to my delight
+2000高频词|demand|要求|on demand
+2000高频词|deny|否认|deny it
+2000高频词|depend|依靠|it depends
+2000高频词|depressed|沮丧的|feel depressed
+2000高频词|deserve|应得|you deserve it
+2000高频词|desire|欲望|a strong desire
+2000高频词|destination|目的地|travel destination
+2000高频词|determine|决定|determine the cause
+2000高频词|device|设备|mobile device
+2000高频词|dial|拨号|dial the number
+2000高频词|diamond|钻石|diamond ring
+2000高频词|dinosaur|恐龙|dinosaur bones
+2000高频词|dip|蘸|dip in sauce
+2000高频词|director|导演；主管|film director
+2000高频词|disappear|消失|disappear suddenly
+2000高频词|disappointed|失望的|so disappointed
+2000高频词|disaster|灾难|natural disaster
+2000高频词|discover|发现|discover new places
+2000高频词|dizzy|头晕的|feel dizzy
+2000高频词|doll|洋娃娃|a pretty doll
+2000高频词|donate|捐赠|donate money
+2000高频词|double|双倍的|double room
+2000高频词|doubt|怀疑|no doubt
+2000高频词|dragon|龙|dragon boat
+2000高频词|drama|戏剧|TV drama
+2000高频词|dressing|调料；穿衣|salad dressing
+2000高频词|drill|钻；演习|fire drill
+2000高频词|drunk|喝醉的|get drunk
+2000高频词|dumpling|饺子|make dumplings
+2000高频词|eager|渴望的|eager to learn
+2000高频词|earring|耳环|a pair of earrings
+2000高频词|earthquake|地震|a big earthquake
+2000高频词|edge|边缘|on the edge
+2000高频词|edit|编辑|edit the photo
+2000高频词|effect|效果|side effect
+2000高频词|elder|年长的|elder sister
+2000高频词|elect|选举|elect a leader
+2000高频词|elegant|优雅的|an elegant dress
+2000高频词|embarrassed|尴尬的|feel embarrassed
+2000高频词|emotion|情感|show emotion
+2000高频词|encourage|鼓励|encourage me
+2000高频词|enemy|敌人|the enemy
+2000高频词|engage|订婚；参与|get engaged
+2000高频词|engine|引擎|start the engine
+2000高频词|entertainment|娱乐|entertainment news
+2000高频词|envelope|信封|a paper envelope
+2000高频词|error|错误|an error message
+2000高频词|escape|逃跑|escape from
+2000高频词|essay|文章|write an essay
+2000高频词|evidence|证据|no evidence
+2000高频词|exact|精确的|the exact time
+2000高频词|examine|检查|examine carefully
+2000高频词|excellent|优秀的|excellent work
+2000高频词|except|除了|except me
+2000高频词|excitement|兴奋|full of excitement
+2000高频词|exhausted|筋疲力尽的|I'm exhausted
+2000高频词|exist|存在|does it exist
+2000高频词|experiment|实验|do an experiment
+2000高频词|export|出口|export goods
+2000高频词|express|表达|express yourself
+2000高频词|extra|额外的|extra money
+2000高频词|extremely|极其|extremely hot
+2000高频词|fairy|仙女|fairy tale
+2000高频词|false|错误的|true or false
+2000高频词|familiar|熟悉的|look familiar
+2000高频词|fantastic|极好的|fantastic idea
+2000高频词|farmer|农民|a farmer
+2000高频词|faucet|水龙头|turn off the faucet
+2000高频词|feather|羽毛|light as a feather
+2000高频词|fee|费用|entrance fee
+2000高频词|female|女性的|female student
+2000高频词|fence|篱笆|over the fence
+2000高频词|ferry|渡船|take the ferry
+2000高频词|fiction|小说|science fiction
+2000高频词|figure|数字；身材|keep fit figure
+2000高频词|fireworks|烟花|watch fireworks
+2000高频词|fist|拳头|make a fist
+2000高频词|flash|闪光|in a flash
+2000高频词|flavor|味道|what flavor
+2000高频词|flexible|灵活的|flexible hours
+2000高频词|float|漂浮|float on water
+2000高频词|flood|洪水|a big flood
+2000高频词|fold|折叠|fold the clothes
+2000高频词|fond|喜爱的|fond of music
+2000高频词|football|足球|play football
+2000高频词|forecast|预报|weather forecast
+2000高频词|forehead|前额|on the forehead
+2000高频词|fortunately|幸运地|fortunately, it stopped
+2000高频词|fountain|喷泉|a water fountain
+2000高频词|fox|狐狸|a clever fox
+2000高频词|frame|框架|photo frame
+2000高频词|frankly|坦白地|frankly speaking
+2000高频词|fried|油炸的|fried rice
+2000高频词|frightened|害怕的|feel frightened
+2000高频词|frozen|冷冻的|frozen food
+2000高频词|fry|油炸|fry an egg
+2000高频词|fuel|燃料|fuel price
+2000高频词|fund|基金|raise funds
+2000高频词|funeral|葬礼|attend a funeral
+2000高频词|fur|毛皮|soft fur
+2000高频词|garlic|大蒜|garlic bread
+2000高频词|gasoline|汽油|out of gasoline
+2000高频词|gender|性别|gender equality
+2000高频词|gesture|手势|a kind gesture
+2000高频词|ginger|生姜|ginger tea
+2000高频词|giraffe|长颈鹿|a tall giraffe
+2000高频词|glance|瞥一眼|at a glance
+2000高频词|glasses|眼镜|wear glasses
+2000高频词|global|全球的|global warming
+2000高频词|glue|胶水|stick with glue
+2000高频词|golf|高尔夫|play golf
+2000高频词|gossip|闲话|office gossip
+2000高频词|grab|抓住|grab a coffee
+2000高频词|grain|谷物|whole grain
+2000高频词|gram|克|100 grams
+2000高频词|grape|葡萄|a bunch of grapes
+2000高频词|grateful|感激的|I'm grateful
+2000高频词|greedy|贪婪的|don't be greedy
+2000高频词|grill|烤|grill the meat
+2000高频词|guard|守卫|security guard
+2000高频词|guilty|内疚的|feel guilty
+2000高频词|hairdresser|美发师|go to the hairdresser
+2000高频词|hamburger|汉堡包|a hamburger and fries
+2000高频词|hammer|锤子|use a hammer
+2000高频词|handbag|手提包|a leather handbag
+2000高频词|hardly|几乎不|hardly ever
+2000高频词|harm|伤害|no harm
+2000高频词|harvest|收获|autumn harvest
+2000高频词|headline|标题|news headline
+2000高频词|headphones|耳机|wear headphones
+2000高频词|heal|治愈|heal quickly
+2000高频词|heaven|天堂|oh, heaven
+2000高频词|helmet|头盔|wear a helmet
+2000高频词|highway|公路|on the highway
+2000高频词|hike|远足|go for a hike
+2000高频词|hire|雇用；租|hire a car
+2000高频词|holy|神圣的|holy place
+2000高频词|honor|荣誉|it's an honor
+2000高频词|hook|钩子|on the hook
+2000高频词|horrible|可怕的|a horrible day
+2000高频词|household|家庭的|household chores
+2000高频词|housework|家务|do housework
+2000高频词|human|人类|human being
+2000高频词|humid|潮湿的|humid weather
+2000高频词|hunger|饥饿|die of hunger
+2000高频词|ideal|理想的|ideal job
+2000高频词|ignore|忽略|ignore it
+2000高频词|illness|疾病|a serious illness
+2000高频词|impossible|不可能的|mission impossible
+2000高频词|impress|给……留下印象|impress me
+2000高频词|independent|独立的|be independent
+2000高频词|indoor|室内的|indoor sports
+2000高频词|injure|伤害|get injured
+2000高频词|ink|墨水|black ink
+2000高频词|innocent|无辜的|innocent people
+2000高频词|insist|坚持|I insist
+2000高频词|inspire|激励|inspire me
+2000高频词|instant|即时的|instant noodles
+2000高频词|instruction|说明|follow the instructions
+2000高频词|instrument|乐器|play an instrument
+2000高频词|intelligent|聪明的|an intelligent boy
+2000高频词|intend|打算|intend to go
+2000高频词|international|国际的|international trade
+2000高频词|invent|发明|invent something
+2000高频词|invest|投资|invest money
+2000高频词|involve|涉及|get involved
+2000高频词|jar|罐子|a jar of honey
+2000高频词|jealous|嫉妒的|feel jealous
+2000高频词|jewelry|珠宝|wear jewelry
+2000高频词|jog|慢跑|go jogging
+2000高频词|journalist|记者|a young journalist
+2000高频词|joy|喜悦|jump for joy
+2000高频词|kettle|水壶|boil the kettle
+2000高频词|keyboard|键盘|computer keyboard
+2000高频词|kindergarten|幼儿园|go to kindergarten
+2000高频词|kingdom|王国|United Kingdom
+2000高频词|kite|风筝|fly a kite
+2000高频词|knit|编织|knit a sweater
+2000高频词|knowledge|知识|general knowledge
+2000高频词|lamb|羔羊肉|roast lamb
+2000高频词|landlord|房东|call the landlord
+2000高频词|lane|小巷；车道|fast lane
+2000高频词|lap|大腿；一圈|on my lap
+2000高频词|laughter|笑声|full of laughter
+2000高频词|layer|层|a thin layer
+2000高频词|lecture|讲座|attend a lecture
+2000高频词|lettuce|生菜|fresh lettuce
+2000高频词|liar|说谎者|you liar
+2000高频词|lid|盖子|put the lid on
+2000高频词|lifestyle|生活方式|healthy lifestyle
+2000高频词|lightning|闪电|thunder and lightning
+2000高频词|lion|狮子|a brave lion
+2000高频词|literature|文学|English literature
+2000高频词|lobby|大堂|hotel lobby
+2000高频词|loose|松的|loose clothes
+2000高频词|lottery|彩票|win the lottery
+3000高频词|mad|发疯的；生气的|drive me mad
+3000高频词|male|男性的|male nurse
+3000高频词|mango|芒果|mango juice
+3000高频词|maple|枫树|maple leaf
+3000高频词|marathon|马拉松|run a marathon
+3000高频词|marble|大理石|marble floor
+3000高频词|marker|记号笔|a red marker
+3000高频词|mayor|市长|the city mayor
+3000高频词|meanwhile|同时|in the meanwhile
+3000高频词|mechanic|机械师|car mechanic
+3000高频词|medal|奖牌|gold medal
+3000高频词|medium|中等的|medium size
+3000高频词|melon|甜瓜|water melon
+3000高频词|melt|融化|ice melts
+3000高频词|mental|精神的|mental health
+3000高频词|merchant|商人|a rich merchant
+3000高频词|mercy|仁慈|have mercy
+3000高频词|merry|愉快的|merry Christmas
+3000高频词|metro|地铁|take the metro
+3000高频词|microwave|微波炉|heat in the microwave
+3000高频词|mild|温和的|mild weather
+3000高频词|mineral|矿物|mineral water
+3000高频词|minor|次要的|a minor problem
+3000高频词|miracle|奇迹|a small miracle
+3000高频词|misunderstand|误解|don't misunderstand me
+3000高频词|mobile|移动的|mobile phone
+3000高频词|model|模特；模型|a fashion model
+3000高频词|moderate|适度的|moderate exercise
+3000高频词|monitor|监视器；显示器|computer monitor
+3000高频词|monkey|猴子|a funny monkey
+3000高频词|monthly|每月的|monthly pay
+3000高频词|monument|纪念碑|a famous monument
+3000高频词|moon|月亮|full moon
+3000高频词|moral|道德的|moral values
+3000高频词|mosquito|蚊子|mosquito bite
+3000高频词|motel|汽车旅馆|stay at a motel
+3000高频词|motivate|激励|motivate yourself
+3000高频词|motorcycle|摩托车|ride a motorcycle
+3000高频词|moustache|小胡子|grow a moustache
+3000高频词|mud|泥|covered in mud
+3000高频词|mug|马克杯|a coffee mug
+3000高频词|multiply|乘|multiply by two
+3000高频词|muscle|肌肉|build muscle
+3000高频词|mushroom|蘑菇|mushroom soup
+3000高频词|mystery|谜|a mystery novel
+3000高频词|nap|小睡|take a nap
+3000高频词|national|国家的|national holiday
+3000高频词|native|本地的|native speaker
+3000高频词|naughty|淘气的|a naughty boy
+3000高频词|navy|海军；藏青色|navy blue
+3000高频词|nearby|附近的|a nearby shop
+3000高频词|necessary|必要的|if necessary
+3000高频词|negotiate|谈判|negotiate a price
+3000高频词|nest|鸟巢|a bird's nest
+3000高频词|net|网|fishing net
+3000高频词|network|网络|social network
+3000高频词|newspaper|报纸|read the newspaper
+3000高频词|nickname|昵称|my nickname
+3000高频词|nightmare|噩梦|have a nightmare
+3000高频词|noble|高贵的|a noble cause
+3000高频词|nod|点头|nod your head
+3000高频词|noisy|吵闹的|a noisy room
+3000高频词|nonsense|胡说|that's nonsense
+3000高频词|nowadays|现今|nowadays people
+3000高频词|nowhere|无处|nowhere to go
+3000高频词|nursery|托儿所|nursery school
+3000高频词|obey|服从|obey the rules
+3000高频词|obvious|明显的|it's obvious
+3000高频词|occasion|场合|special occasion
+3000高频词|occupy|占用|occupied seat
+3000高频词|occur|发生|it occurred to me
+3000高频词|odd|奇怪的；奇数的|odd number
+3000高频词|official|官方的|official website
+3000高频词|onion|洋葱|onion rings
+3000高频词|operate|操作；动手术|operate a machine
+3000高频词|operation|手术|have an operation
+3000高频词|opposite|对面的|on the opposite side
+3000高频词|optimistic|乐观的|stay optimistic
+3000高频词|oral|口头的|oral English
+3000高频词|orchestra|管弦乐队|symphony orchestra
+3000高频词|organ|器官|body organ
+3000高频词|origin|起源|country of origin
+3000高频词|original|原来的|the original plan
+3000高频词|outfit|全套服装|a nice outfit
+3000高频词|outline|大纲|make an outline
+3000高频词|overcome|克服|overcome fear
+3000高频词|overseas|海外的|study overseas
+3000高频词|overtime|加班|work overtime
+3000高频词|overweight|超重的|a bit overweight
+3000高频词|owe|欠|I owe you
+3000高频词|ox|公牛|strong as an ox
+3000高频词|oxygen|氧气|oxygen mask
+3000高频词|pace|步伐|at your own pace
+3000高频词|pad|垫子|mouse pad
+3000高频词|paddle|划桨|paddle a boat
+3000高频词|painful|痛苦的|a painful memory
+3000高频词|pajamas|睡衣|wear pajamas
+3000高频词|pancake|煎饼|pancake breakfast
+3000高频词|panic|惊慌|don't panic
+3000高频词|paragraph|段落|first paragraph
+3000高频词|pardon|原谅；请再说一遍|pardon me
+3000高频词|parcel|包裹|send a parcel
+3000高频词|parrot|鹦鹉|a talking parrot
+3000高频词|participate|参加|participate in
+3000高频词|particular|特别的|in particular
+3000高频词|pasta|意大利面|a plate of pasta
+3000高频词|paste|粘贴|copy and paste
+3000高频词|path|小路|a garden path
+3000高频词|pause|暂停|pause the video
+3000高频词|pavement|人行道|on the pavement
+3000高频词|pea|豌豆|green peas
+3000高频词|peanut|花生|peanut butter
+3000高频词|pedestrian|行人|pedestrian crossing
+3000高频词|peel|剥皮|peel an orange
+3000高频词|peer|同龄人|peer pressure
+3000高频词|penalty|罚款；点球|penalty kick
+3000高频词|penny|便士|a penny saved
+3000高频词|permanent|永久的|permanent job
+3000高频词|persuade|说服|persuade him
+3000高频词|pharmacy|药店|go to the pharmacy
+3000高频词|phrase|短语|a useful phrase
+3000高频词|physics|物理|physics class
+3000高频词|pickle|泡菜|pickle jar
+3000高频词|picnic|野餐|have a picnic
+3000高频词|pigeon|鸽子|feed the pigeons
+3000高频词|pile|堆|a pile of books
+3000高频词|pillar|柱子|a stone pillar
+3000高频词|pin|别针|a safety pin
+3000高频词|pine|松树|pine tree
+3000高频词|pineapple|菠萝|pineapple juice
+3000高频词|pipe|管子|water pipe
+3000高频词|pitch|球场；音高|football pitch
+3000高频词|plain|朴素的|plain white
+3000高频词|plug|插头|plug it in
+3000高频词|plumber|水管工|call a plumber
+3000高频词|pole|杆|a long pole
+3000高频词|policy|政策|company policy
+3000高频词|polish|擦亮|polish shoes
+3000高频词|politics|政治|talk politics
+3000高频词|porch|门廊|on the porch
+3000高频词|port|港口|in port
+3000高频词|portion|部分；一份|a large portion
+3000高频词|portrait|肖像|a family portrait
+3000高频词|possess|拥有|possess a talent
+3000高频词|postcard|明信片|send a postcard
+3000高频词|poster|海报|a movie poster
+3000高频词|pot|锅；罐|a pot of tea
+3000高频词|pour|倒|pour some water
+3000高频词|poverty|贫穷|live in poverty
+3000高频词|precious|珍贵的|precious time
+3000高频词|predict|预测|predict the future
+3000高频词|prepared|有准备的|be prepared
+3000高频词|prescription|处方|a prescription
+3000高频词|presentation|演讲；展示|give a presentation
+3000高频词|preserve|保护；保存|preserve food
+3000高频词|prevent|防止|prevent accidents
+3000高频词|previous|以前的|previous job
+3000高频词|pride|自豪|take pride in
+3000高频词|primary|初级的|primary school
+3000高频词|principal|校长|school principal
+3000高频词|principle|原则|in principle
+3000高频词|printer|打印机|use the printer
+3000高频词|priority|优先事项|top priority
+3000高频词|probable|可能的|it's probable
+3000高频词|procedure|程序|follow the procedure
+3000高频词|process|过程|in the process
+3000高频词|profession|职业|my profession
+3000高频词|professional|专业的|a professional
+3000高频词|profile|简介|profile photo
+3000高频词|promote|提升；推广|get promoted
+3000高频词|pronounce|发音|pronounce it
+3000高频词|proof|证据|proof of address
+3000高频词|property|财产|private property
+3000高频词|proposal|提议|marriage proposal
+3000高频词|propose|提议；求婚|propose to her
+3000高频词|protein|蛋白质|high protein
+3000高频词|protest|抗议|a peaceful protest
+3000高频词|provide|提供|provide food
+3000高频词|psychology|心理学|study psychology
+3000高频词|pub|酒吧|go to the pub
+3000高频词|publish|出版|publish a book
+3000高频词|pudding|布丁|rice pudding
+3000高频词|pump|泵|bike pump
+3000高频词|punch|一拳|a punch in the face
+3000高频词|punctual|准时的|be punctual
+3000高频词|purchase|购买|make a purchase
+3000高频词|pure|纯的|pure water
+3000高频词|pursue|追求|pursue a dream
+3000高频词|puzzled|困惑的|look puzzled
+3000高频词|qualify|有资格|qualify for
+3000高频词|quantity|数量|large quantity
+3000高频词|quiz|小测验|a quiz show
+3000高频词|quote|引用；报价|get a quote
+3000高频词|rack|架子|a coat rack
+3000高频词|radar|雷达|on the radar
+3000高频词|rag|破布|an old rag
+3000高频词|rail|铁轨；栏杆|by rail
+3000高频词|rare|罕见的；半熟的|rare steak
+3000高频词|rarely|很少|rarely seen
+3000高频词|rat|老鼠|a big rat
+3000高频词|rating|评级|high rating
+3000高频词|reader|读者|a big reader
+3000高频词|reality|现实|in reality
+3000高频词|reasonable|合理的|a reasonable price
+3000高频词|rebuild|重建|rebuild the house
+3000高频词|receipt|收据|keep the receipt
+3000高频词|recent|最近的|recent news
+3000高频词|recently|最近|recently I moved
+3000高频词|reception|接待处|at the reception
+3000高频词|recognize|认出|I recognize you
+3000高频词|recover|康复|recover quickly
+3000高频词|reduce|减少|reduce stress
+3000高频词|refer|提到；参考|refer to
+3000高频词|reflect|反映；反思|reflect on
+3000高频词|refund|退款|get a refund
+3000高频词|region|地区|this region
+3000高频词|register|登记|register online
+3000高频词|regularly|定期地|exercise regularly
+3000高频词|reject|拒绝|reject the offer
+3000高频词|release|释放；发布|release a song
+3000高频词|reliable|可靠的|a reliable friend
+3000高频词|relief|宽慰|what a relief
+3000高频词|religion|宗教|freedom of religion
+3000高频词|rely|依赖|rely on me
+3000高频词|remain|保持；剩下|remain calm
+3000高频词|remark|评论|a rude remark
+3000高频词|rental|租赁|car rental
+3000高频词|replace|替换|replace the battery
+3000高频词|represent|代表|represent the team
+3000高频词|reputation|名声|good reputation
+3000高频词|require|需要|required skills
+3000高频词|resident|居民|local resident
+3000高频词|resign|辞职|resign from
+3000高频词|resist|抵抗|can't resist
+3000高频词|resort|度假胜地|beach resort
+3000高频词|resource|资源|natural resources
+3000高频词|respond|回应|respond quickly
+3000高频词|restroom|洗手间|where is the restroom
+3000高频词|retire|退休|retire early
+3000高频词|reveal|揭示|reveal a secret
+3000高频词|revise|修改；复习|revise the plan
+3000高频词|rhythm|节奏|feel the rhythm
+3000高频词|rib|肋骨|spare ribs
+3000高频词|ribbon|丝带|a red ribbon
+3000高频词|rid|摆脱|get rid of
+3000高频词|riddle|谜语|solve a riddle
+3000高频词|ridiculous|荒谬的|that's ridiculous
+3000高频词|ripe|成熟的|ripe fruit
+3000高频词|rise|上升|prices rise
+3000高频词|roast|烤|roast chicken
+3000高频词|roll|滚；卷|egg roll
+3000高频词|roommate|室友|my roommate
+3000高频词|root|根|the root of the problem
+3000高频词|rotten|腐烂的|rotten apple
+3000高频词|rough|粗糙的|a rough day
+3000高频词|routine|日常|daily routine
+3000高频词|royal|皇家的|royal family
+3000高频词|rub|擦|rub your eyes
+3000高频词|rubber|橡胶|rubber band
+3000高频词|rug|小地毯|on the rug
+3000高频词|ruin|毁坏|ruin my day
+3000高频词|rumor|谣言|spread rumors
+3000高频词|rural|农村的|rural area
+3000高频词|rusty|生锈的|a rusty key
+3000高频词|sack|麻袋|a sack of rice
+3000高频词|sacrifice|牺牲|make a sacrifice
+3000高频词|sadly|可悲地|sadly, no
+3000高频词|safety|安全|safety first
+3000高频词|sail|航行|set sail
+3000高频词|sailor|水手|a young sailor
+3000高频词|saint|圣人|patron saint
+3000高频词|sake|缘故|for your sake
+3000高频词|sandwich|三明治|a ham sandwich
+3000高频词|satellite|卫星|satellite TV
+3000高频词|satisfy|满足|satisfy your hunger
+3000高频词|satisfied|满意的|I'm satisfied
+3000高频词|saucer|茶托|cup and saucer
+3000高频词|saving|储蓄|savings account
+3000高频词|scale|规模；秤|on a large scale
+3000高频词|scan|扫描|scan the code
+3000高频词|scar|伤疤|a small scar
+3000高频词|scared|害怕的|I'm scared
+3000高频词|schoolbag|书包|a heavy schoolbag
+3000高频词|scholarship|奖学金|win a scholarship
+3000高频词|scratch|抓；刮|from scratch
+3000高频词|scream|尖叫|scream loudly
+3000高频词|screw|螺丝|tighten the screw
+3000高频词|sculpture|雕塑|a stone sculpture
+3000高频词|seafood|海鲜|seafood restaurant
+3000高频词|seal|海豹；密封|seal the box
+3000高频词|seaside|海边|at the seaside
+3000高频词|seasick|晕船的|feel seasick
+3000高频词|seatbelt|安全带|fasten your seatbelt
+3000高频词|secondhand|二手的|secondhand car
+3000高频词|seek|寻找|seek help
+3000高频词|seldom|很少|seldom late
+3000高频词|senior|年长的；高级的|senior citizen
+3000高频词|sensitive|敏感的|sensitive skin
+3000高频词|sew|缝|sew a button
+3000高频词|shampoo|洗发水|a bottle of shampoo
+3000高频词|sheep|羊|a flock of sheep
+3000高频词|sheet|床单；一张|a sheet of paper
+3000高频词|shelter|庇护所|take shelter
+3000高频词|shift|轮班；转换|night shift
+3000高频词|shiny|闪亮的|shiny shoes
+3000高频词|shocked|震惊的|I'm shocked
+3000高频词|shorts|短裤|wear shorts
+3000高频词|shortly|不久|shortly after
+3000高频词|shrimp|虾|fried shrimp
+3000高频词|shrink|缩水|shrink in the wash
+3000高频词|sibling|兄弟姐妹|my siblings
+3000高频词|sigh|叹气|a deep sigh
+3000高频词|sightseeing|观光|go sightseeing
+3000高频词|silent|沉默的|stay silent
+3000高频词|sincere|真诚的|sincere thanks
+3000高频词|sip|啜饮|take a sip
+3000高频词|skate|滑冰|go skating
+3000高频词|sketch|素描|a quick sketch
+3000高频词|ski|滑雪|go skiing
+3000高频词|skinny|瘦的|skinny jeans
+3000高频词|slang|俚语|English slang
+3000高频词|slap|拍；掴|a slap in the face
+3000高频词|slide|滑动；滑梯|slide down
+3000高频词|slight|轻微的|a slight cold
+3000高频词|slip|滑倒|slip on ice
+3000高频词|slogan|口号|a catchy slogan
+3000高频词|slope|斜坡|ski slope
+3000高频词|smartphone|智能手机|a new smartphone
+3000高频词|sneeze|打喷嚏|sneeze loudly
+3000高频词|snore|打鼾|snore at night
+3000高频词|soccer|足球|play soccer
+3000高频词|software|软件|install software
+3000高频词|solar|太阳的|solar energy
+3000高频词|solid|固体的；坚实的|solid food
+3000高频词|someday|有一天|someday soon
+3000高频词|sorrow|悲伤|deep sorrow
+3000高频词|sort|种类；整理|sort of
+3000高频词|spare|空闲的；备用的|spare time
+3000高频词|sparkle|闪耀|sparkle in the dark
+3000高频词|specific|具体的|be specific
+3000高频词|spill|洒出|spill the coffee
+3000高频词|spin|旋转|spin around
+3000高频词|spinach|菠菜|eat spinach
+3000高频词|split|分开|split the bill
+3000高频词|spoil|宠坏；破坏|spoil the fun
+3000高频词|sponsor|赞助|sponsor an event
+3000高频词|spray|喷雾|hair spray
+3000高频词|spread|传播；涂抹|spread butter
+3000高频词|squeeze|挤|squeeze a lemon
+3000高频词|stable|稳定的|a stable job
+3000高频词|stain|污渍|coffee stain
+3000高频词|stairway|楼梯|a narrow stairway
+3000高频词|stall|摊位|a market stall
+3000高频词|stare|盯着|stop staring
+3000高频词|starve|挨饿|I'm starving
+3000高频词|state|州；状态|the state of
+3000高频词|statement|声明|bank statement
+3000高频词|stationery|文具|stationery store
+3000高频词|steady|稳定的|slow and steady
+3000高频词|steep|陡峭的|a steep hill
+3000高频词|stir|搅拌|stir the soup
+3000高频词|stock|库存；股票|in stock
+3000高频词|stocking|长袜|Christmas stocking
+3000高频词|stool|凳子|a wooden stool
+3000高频词|storage|储存|storage room
+3000高频词|stranger|陌生人|don't talk to strangers
+3000高频词|straw|吸管；稻草|drink with a straw
+3000高频词|stream|小溪；流|a mountain stream
+3000高频词|strength|力量|inner strength
+3000高频词|stretch|伸展|stretch your legs
+3000高频词|strict|严格的|a strict teacher
+3000高频词|strike|罢工；打击|on strike
+3000高频词|stripe|条纹|black stripes
+3000高频词|stroll|散步|take a stroll
+3000高频词|struggle|奋斗|struggle to live
+3000高频词|stuck|卡住的|I'm stuck
+3000高频词|studio|工作室|a photo studio
+3000高频词|stuffed|吃饱的；填充的|I'm stuffed
+3000高频词|subway|地铁|take the subway
+3000高频词|succeed|成功|succeed in life
+3000高频词|sudden|突然的|all of a sudden
+3000高频词|suffer|受苦|suffer from
+3000高频词|sufficient|足够的|sufficient food
+3000高频词|suggestion|建议|a good suggestion
+3000高频词|summary|总结|in summary
+3000高频词|sunglasses|太阳镜|wear sunglasses
+3000高频词|sunrise|日出|watch the sunrise
+3000高频词|sunset|日落|watch the sunset
+3000高频词|sunshine|阳光|in the sunshine
+3000高频词|supply|供应|food supply
+3000高频词|surf|冲浪；上网|surf the internet
+3000高频词|surgery|手术|have surgery
+3000高频词|surname|姓|your surname
+3000高频词|surround|包围|surrounded by
+3000高频词|survive|幸存|survive the storm
+3000高频词|suspect|怀疑|I suspect so
+3000高频词|swallow|吞|swallow the pill
+3000高频词|swap|交换|swap seats
+3000高频词|sweep|扫|sweep the floor
+3000高频词|swimsuit|泳衣|a new swimsuit
+3000高频词|switch|开关；转换|switch off
+3000高频词|abroad|在国外|go abroad
+3000高频词|absolutely|绝对地|absolutely right
+3000高频词|academic|学术的|academic year
+3000高频词|access|进入；访问|internet access
+3000高频词|accommodation|住宿|find accommodation
+3000高频词|accompany|陪伴|accompany me
+3000高频词|accomplish|完成|accomplish a goal
+3000高频词|according|根据|according to
+3000高频词|accurate|准确的|accurate time
+3000高频词|ache|疼痛|stomach ache
+3000高频词|acquire|获得|acquire skills
+3000高频词|actor|男演员|a famous actor
+3000高频词|actress|女演员|a young actress
+3000高频词|adapt|适应|adapt to
+3000高频词|addicted|上瘾的|addicted to games
+3000高频词|additional|额外的|additional cost
+3000高频词|adjust|调整|adjust the seat
+3000高频词|admission|入场；录取|free admission
+3000高频词|adorable|可爱的|so adorable
+3000高频词|advertise|做广告|advertise online
+3000高频词|affect|影响|affect your health
+3000高频词|agenda|议程|on the agenda
+3000高频词|aggressive|好斗的|aggressive driver
+3000高频词|agriculture|农业|modern agriculture
+3000高频词|ahead|在前面|go ahead
+3000高频词|aid|援助|first aid
+3000高频词|airline|航空公司|a cheap airline
+3000高频词|aisle|过道|aisle seat
+3000高频词|album|相册；专辑|photo album
+3000高频词|alcohol|酒精|no alcohol
+3000高频词|alien|外星人|alien movie
+3000高频词|alley|小巷|a dark alley
+3000高频词|allowance|零花钱|weekly allowance
+3000高频词|alphabet|字母表|the English alphabet
+3000高频词|alternative|选择；替代的|an alternative way
+3000高频词|altogether|总共|altogether ten
+3000高频词|amusement|娱乐|amusement park
+3000高频词|analyze|分析|analyze data
+3000高频词|anger|愤怒|full of anger
+3000高频词|announcement|公告|make an announcement
+3000高频词|annoyed|恼怒的|feel annoyed
+3000高频词|ant|蚂蚁|busy as an ant
+3000高频词|antique|古董|an antique shop
+3000高频词|anxiety|焦虑|deal with anxiety
+3000高频词|apology|道歉|accept my apology
+3000高频词|apparently|显然|apparently not
+3000高频词|appeal|吸引力；呼吁|appeal to
+3000高频词|applicant|申请人|job applicant
+3000高频词|application|申请|application form
+3000高频词|apron|围裙|wear an apron
+3000高频词|aquarium|水族馆|visit the aquarium
+3000高频词|architect|建筑师|a famous architect
+3000高频词|arrow|箭头|follow the arrow
+3000高频词|aspect|方面|every aspect
+3000高频词|assignment|作业；任务|homework assignment
+3000高频词|assistant|助手|shop assistant
+3000高频词|assume|假定|I assume so
+3000高频词|astonish|使惊讶|astonish everyone
+3000高频词|attach|附上|attach a file
+3000高频词|attempt|尝试|first attempt
+3000高频词|attractive|有吸引力的|very attractive
+3000高频词|audio|音频|audio guide
+3000高频词|authority|权威；当局|local authority
+3000高频词|avocado|牛油果|avocado toast
+3000高频词|award-winning|获奖的|award-winning film
+3000高频词|babysitter|保姆|hire a babysitter
+3000高频词|backyard|后院|in the backyard
+3000高频词|bacteria|细菌|kill bacteria
+3000高频词|badge|徽章|name badge
+3000高频词|badminton|羽毛球|play badminton
+3000高频词|balcony|阳台|on the balcony
+3000高频词|bald|秃头的|go bald
+3000高频词|ban|禁止|smoking ban
+3000高频词|bargain|便宜货；讨价还价|a good bargain
+3000高频词|barrier|障碍|language barrier
+3000高频词|baseball|棒球|play baseball
+3000高频词|basement|地下室|in the basement
+3000高频词|basin|盆|wash basin
+3000高频词|bat|球拍；蝙蝠|baseball bat
+3000高频词|battle|战斗|a hard battle
+3000高频词|bedtime|就寝时间|bedtime story
+3000高频词|beginner|初学者|a beginner
+3000高频词|behavior|行为|good behavior
+3000高频词|beloved|心爱的|my beloved
+3000高频词|bend|弯曲|bend down
+3000高频词|beverage|饮料|hot beverage
+3000高频词|bicycle|自行车|ride a bicycle
+3000高频词|bid|出价|make a bid
+3000高频词|bin|垃圾箱|rubbish bin
+3000高频词|biology|生物|biology class
+3000高频词|blank|空白的|leave it blank
+3000高频词|blender|搅拌机|use a blender
+3000高频词|blink|眨眼|in a blink
+3000高频词|blond|金发的|blond hair
+3000高频词|bloom|开花|in full bloom
+3000高频词|blossom|花|cherry blossom
+3000高频词|boarding|登机|boarding pass
+3000高频词|bold|大胆的|a bold move
+3000高频词|bolt|螺栓|nuts and bolts
+3000高频词|bonus|奖金|a year-end bonus
+3000高频词|booking|预订|online booking
+3000高频词|bookshelf|书架|on the bookshelf
+3000高频词|bookstore|书店|go to the bookstore
+3000高频词|boost|提升|boost energy
+3000高频词|bore|使厌烦|bore me
+3000高频词|bounce|弹跳|bounce the ball
+3000高频词|bracelet|手镯|a silver bracelet
+3000高频词|brainstorm|头脑风暴|let's brainstorm
+3000高频词|brand-new|全新的|brand-new car
+3000高频词|bravely|勇敢地|bravely done
+3000高频词|broccoli|西兰花|steamed broccoli
+3000高频词|broom|扫帚|a broom
+3000高频词|brownie|布朗尼|chocolate brownie
+3000高频词|browse|浏览|just browsing
+3000高频词|bubble|泡泡|blow bubbles
+3000高频词|buffet|自助餐|a buffet dinner
+3000高频词|bulb|灯泡|light bulb
+3000高频词|bull|公牛|a strong bull
+3000高频词|bully|欺负|stop bullying
+3000高频词|bumpy|颠簸的|a bumpy ride
+3000高频词|bunny|兔子|a cute bunny
+3000高频词|burglar|窃贼|catch a burglar
+3000高频词|bury|埋|bury it
+3000高频词|butterfly|蝴蝶|a beautiful butterfly
+3000高频词|cafeteria|自助餐厅|school cafeteria
+3000高频词|cage|笼子|a bird cage
+3000高频词|calculator|计算器|use a calculator
+3000高频词|camel|骆驼|ride a camel
+3000高频词|canteen|食堂|school canteen
+3000高频词|canvas|帆布|canvas bag
+3000高频词|capable|有能力的|capable of
+3000高频词|carefully|小心地|drive carefully
+3000高频词|careless|粗心的|a careless mistake
+3000高频词|cargo|货物|cargo ship
+3000高频词|carnival|狂欢节|a carnival
+3000高频词|carriage|马车；车厢|a horse carriage
+3000高频词|carton|纸盒|a carton of milk
+3000高频词|cast|演员阵容|the cast
+3000高频词|category|类别|in this category
+3000高频词|cautious|谨慎的|be cautious
+3000高频词|celery|芹菜|celery sticks
+3000高频词|cellar|地窖|wine cellar
+3000高频词|cement|水泥|cement floor
+3000高频词|chairman|主席|the chairman
+3000高频词|championship|锦标赛|win the championship
+3000高频词|changeable|易变的|changeable weather
+3000高频词|chaos|混乱|total chaos
+3000高频词|chapter|章|chapter one
+3000高频词|charity|慈善|for charity
+3000高频词|charm|魅力|full of charm
+3000高频词|charming|迷人的|a charming town
+3000高频词|chart|图表|a pie chart
+3000高频词|chase|追逐|chase the dog
+3000高频词|cheat|作弊；欺骗|don't cheat
+3000高频词|checkout|结账|at the checkout
+3000高频词|cheerleader|啦啦队长|a cheerleader
+3000高频词|chew|嚼|chew gum
+3000高频词|chick|小鸡|a baby chick
+3000高频词|chili|辣椒|chili sauce
+3000高频词|chimney|烟囱|a tall chimney
+3000高频词|chop|砍；排骨|lamb chop
+3000高频词|chore|家务|household chores
+3000高频词|chubby|圆胖的|chubby cheeks
+3000高频词|circus|马戏团|go to the circus
+3000高频词|civil|公民的|civil rights
+3000高频词|clarify|澄清|let me clarify
+3000高频词|classic|经典的|a classic movie
+3000高频词|classical|古典的|classical music
+3000高频词|classroom|教室|in the classroom
+3000高频词|claw|爪|cat's claw
+3000高频词|clay|黏土|clay pot
+3000高频词|cleaner|清洁工|window cleaner
+3000高频词|climber|登山者|a rock climber
+3000高频词|cloakroom|衣帽间|leave it in the cloakroom
+3000高频词|clockwise|顺时针|turn clockwise
+3000高频词|clue|线索|no clue
+3000高频词|clumsy|笨拙的|so clumsy
+3000高频词|coconut|椰子|coconut milk
+3000高频词|coincidence|巧合|what a coincidence
+3000高频词|collapse|倒塌|the bridge collapsed
+3000高频词|collection|收藏|stamp collection
+3000高频词|colorful|多彩的|a colorful dress
+3000高频词|combine|结合|combine them
+3000高频词|comic|漫画|read comics
+3000高频词|commit|犯；承诺|commit to
+3000高频词|committee|委员会|the committee
+3000高频词|communicate|交流|communicate with
+3000高频词|commute|通勤|daily commute
+3000高频词|companion|同伴|a travel companion
+3000高频词|compliment|称赞|thanks for the compliment
+3000高频词|compose|作曲；组成|compose music
+3000高频词|concentrate|集中|concentrate on
+3000高频词|concept|概念|a new concept
+3000高频词|concerned|担心的|I'm concerned
+3000高频词|conclusion|结论|in conclusion
+3000高频词|condo|公寓|buy a condo
+3000高频词|conductor|售票员；指挥|bus conductor
+3000高频词|cone|圆锥；蛋筒|ice cream cone
+3000高频词|confess|承认|confess the truth
+3000高频词|confidence|信心|lack confidence
+3000高频词|conflict|冲突|avoid conflict
+3000高频词|confuse|使困惑|don't confuse me
+3000高频词|congratulate|祝贺|congratulate you
+3000高频词|consequence|后果|face the consequences
+3000高频词|constant|不断的|constant noise
+3000高频词|construct|建造|construct a bridge
+3000高频词|consult|咨询|consult a doctor
+3000高频词|consumer|消费者|consumer rights
+3000高频词|contribute|贡献|contribute to
+3000高频词|convenient|方便的|is it convenient
+3000高频词|convince|说服|convince me
+3000高频词|cooperate|合作|cooperate with
+3000高频词|cope|应对|cope with stress
+3000高频词|cord|绳；线|phone cord
+3000高频词|cork|软木塞|wine cork
+3000高频词|correction|改正|make a correction
+3000高频词|cosmetics|化妆品|buy cosmetics
+3000高频词|costly|昂贵的|a costly mistake
+3000高频词|cosy|舒适的|a cosy room
+3000高频词|countryside|乡村|in the countryside
+3000高频词|courtyard|庭院|in the courtyard
+3000高频词|cow|奶牛|milk a cow
+3000高频词|cozy|温馨的|a cozy home
+3000高频词|crack|裂缝|a crack in the wall
+3000高频词|cracker|饼干|cheese crackers
+3000高频词|craft|手艺|arts and crafts
+3000高频词|cramp|抽筋|leg cramp
+3000高频词|crayon|蜡笔|draw with crayons
+3000高频词|creative|有创意的|be creative
+3000高频词|creature|生物|a strange creature
+3000高频词|crew|全体船员|the crew
+3000高频词|cricket|板球；蟋蟀|play cricket
+3000高频词|critical|关键的；批评的|critical moment
+3000高频词|criticize|批评|don't criticize
+3000高频词|crop|庄稼|crop harvest
+3000高频词|crossroads|十字路口|at the crossroads
+3000高频词|crow|乌鸦|a black crow
+3000高频词|crowded|拥挤的|a crowded bus
+3000高频词|crown|王冠|wear a crown
+3000高频词|cruise|游轮|go on a cruise
+3000高频词|crumb|碎屑|bread crumbs
+3000高频词|crush|压碎；迷恋|have a crush on
+3000高频词|crystal|水晶|crystal clear
+3000高频词|cuddle|拥抱|cuddle up
+3000高频词|cupcake|纸杯蛋糕|chocolate cupcake
+3000高频词|curly|卷曲的|curly hair
+3000高频词|currency|货币|foreign currency
+3000高频词|cutlery|餐具|knives and forks
+3000高频词|daisy|雏菊|a daisy
+3000高频词|dancer|舞者|a great dancer
+3000高频词|dare|敢|how dare you
+3000高频词|database|数据库|update the database
+3000高频词|daylight|日光|in daylight
+3000高频词|deadly|致命的|deadly serious
+3000高频词|decade|十年|a decade ago
+3000高频词|decline|下降；婉拒|politely decline
+3000高频词|decoration|装饰|Christmas decorations
+3000高频词|decrease|减少|decrease in price
+3000高频词|dedicate|奉献|dedicate to
+3000高频词|deer|鹿|a young deer
+3000高频词|defeat|打败|accept defeat
+3000高频词|definitely|肯定地|definitely yes
+3000高频词|delicate|精致的|delicate flowers
+3000高频词|delighted|高兴的|I'm delighted
+3000高频词|democracy|民主|democracy
+3000高频词|dense|浓密的|dense fog
+3000高频词|departure|出发|departure time
+3000高频词|depth|深度|in depth
+3000高频词|desperate|绝望的；渴望的|desperate for
+3000高频词|despite|尽管|despite the rain
+3000高频词|detective|侦探|a detective story
+3000高频词|detergent|洗涤剂|laundry detergent
+3000高频词|diagram|图表|draw a diagram
+3000高频词|dialogue|对话|a short dialogue
+3000高频词|diaper|尿布|change a diaper
+3000高频词|dice|骰子|roll the dice
+3000高频词|digest|消化|digest food
+3000高频词|digital|数字的|digital camera
+3000高频词|dime|十美分|a dime
+3000高频词|dine|用餐|dine out
+3000高频词|disabled|残疾的|disabled people
+3000高频词|disagree|不同意|I disagree
+3000高频词|discipline|纪律|self discipline
+3000高频词|dishwasher|洗碗机|load the dishwasher
+3000高频词|dislike|不喜欢|likes and dislikes
+3000高频词|display|展示|on display
+3000高频词|distant|遥远的|a distant place
+3000高频词|district|区|shopping district
+3000高频词|disturb|打扰|do not disturb
+3000高频词|dive|潜水|go diving
+3000高频词|dock|码头|at the dock
+3000高频词|dolphin|海豚|swim with dolphins
+3000高频词|dominate|支配|dominate the game
+3000高频词|donkey|驴|ride a donkey
+3000高频词|doorbell|门铃|ring the doorbell
+3000高频词|dormitory|宿舍|live in a dormitory
+3000高频词|dot|点|polka dots
+3000高频词|doughnut|甜甜圈|a sweet doughnut
+3000高频词|downtown|市中心|go downtown
+3000高频词|draft|草稿|first draft
+3000高频词|drain|下水道|drain the water
+3000高频词|drawing|图画|a nice drawing
+3000高频词|drip|滴|drip water
+3000高频词|drown|淹没|drown in water
+3000高频词|drowsy|昏昏欲睡的|feel drowsy
+3000高频词|drum|鼓|play the drums
+3000高频词|due|到期的|due date
+3000高频词|dull|乏味的|a dull day
+3000高频词|dumb|哑的；愚蠢的|a dumb idea
+3000高频词|dump|倾倒；甩|dump him
+3000高频词|durable|耐用的|durable shoes
+3000高频词|dusty|满是灰尘的|a dusty room
+3000高频词|eagle|鹰|a flying eagle
+3000高频词|earphone|耳机|wear earphones
+3000高频词|ease|缓解；容易|at ease
+3000高频词|easily|容易地|easily done
+3000高频词|economy|经济|global economy
+3000高频词|edition|版本|first edition
+3000高频词|educate|教育|educate children
+3000高频词|efficient|高效的|very efficient
+3000高频词|elbow|肘|elbow room
+3000高频词|electricity|电|save electricity
+3000高频词|elephant|大象|a big elephant
+3000高频词|eliminate|消除|eliminate errors
+3000高频词|embassy|大使馆|go to the embassy
+3000高频词|embrace|拥抱|embrace change
+3000高频词|emperor|皇帝|the emperor
+3000高频词|employ|雇用|employ people
+3000高频词|employer|雇主|my employer
+3000高频词|empty-handed|空手的|come empty-handed
+3000高频词|enable|使能够|enable it
+3000高频词|encounter|遇到|encounter problems
+3000高频词|endless|无尽的|endless love
+3000高频词|endure|忍受|endure pain
+3000高频词|energetic|精力充沛的|feel energetic
+3000高频词|engagement|订婚|engagement ring
+3000高频词|enormous|巨大的|an enormous house
+3000高频词|enthusiastic|热情的|be enthusiastic
+3000高频词|entire|整个的|the entire day
+3000高频词|envy|羡慕|green with envy
+3000高频词|episode|一集|next episode
+3000高频词|equipment|设备|sports equipment
+3000高频词|eraser|橡皮|a pencil eraser
+3000高频词|essential|必要的|essential oil
+3000高频词|establish|建立|establish a company
+3000高频词|estimate|估计|a rough estimate
+3000高频词|evaluate|评估|evaluate it
+3000高频词|eventually|最终|eventually it worked
+3000高频词|evil|邪恶的|good and evil
+3000高频词|exaggerate|夸大|don't exaggerate
+3000高频词|exhibition|展览|art exhibition
+3000高频词|expand|扩展|expand the business
+3000高频词|expedition|探险|an expedition
+3000高频词|explore|探索|explore the city
+3000高频词|expose|暴露|expose to the sun
+3000高频词|extend|延长|extend the stay
+3000高频词|extraordinary|非凡的|extraordinary talent
+3000高频词|eyebrow|眉毛|raise an eyebrow
+3000高频词|fabric|织物|soft fabric
+3000高频词|facial|面部的|facial expression
+3000高频词|facility|设施|sports facilities
+3000高频词|factor|因素|a key factor
+3000高频词|factory|工厂|work in a factory
+3000高频词|fade|褪色|fade away
+3000高频词|fairly|相当|fairly good
+3000高频词|faithful|忠诚的|a faithful dog
+3000高频词|fame|名声|fame and fortune
+3000高频词|fantasy|幻想|a fantasy world
+3000高频词|fare|车费|bus fare
+3000高频词|farewell|告别|farewell party
+3000高频词|fasten|系紧|fasten your seatbelt
+3000高频词|fatal|致命的|a fatal mistake
+3000高频词|fatigue|疲劳|feel fatigue
+3000高频词|feast|盛宴|a big feast
+3000高频词|feature|特点|key feature
+3000高频词|federal|联邦的|federal law
+3000高频词|feedback|反馈|give feedback
+3000高频词|fellow|伙伴|fellow students
+3000高频词|fierce|激烈的|fierce competition
+3000高频词|fig|无花果|dried figs
+3000高频词|fighter|战士|a brave fighter
+3000高频词|filter|过滤器|water filter
+3000高频词|finance|金融|personal finance
+3000高频词|fingerprint|指纹|take fingerprints
+3000高频词|firefighter|消防员|a brave firefighter
+3000高频词|firm|坚定的；公司|a law firm
+3000高频词|fisherman|渔夫|an old fisherman
+3000高频词|fishing|钓鱼|go fishing
+3000高频词|flame|火焰|in flames
+3000高频词|flashlight|手电筒|turn on the flashlight
+3000高频词|flatter|奉承|you flatter me
+3000高频词|flea|跳蚤|flea market
+3000高频词|flip|翻转|flip a coin
+3000高频词|florist|花店|go to the florist
+3000高频词|fluent|流利的|fluent English
+3000高频词|flute|长笛|play the flute
+3000高频词|foggy|多雾的|a foggy morning
+3000高频词|folder|文件夹|a blue folder
+3000高频词|following|接下来的|the following day
+3000高频词|footprint|脚印|leave footprints
+3000高频词|forbid|禁止|forbid it
+3000高频词|forgetful|健忘的|so forgetful
+3000高频词|formal|正式的|formal dress
+3000高频词|former|以前的|former boss
+3000高频词|fortnight|两周|a fortnight
+3000高频词|fragile|易碎的|handle with care, fragile
+3000高频词|frank|坦白的|to be frank
+3000高频词|freezer|冰柜|in the freezer
+3000高频词|frequent|频繁的|frequent flyer
+3000高频词|friendship|友谊|true friendship
+3000高频词|fright|惊吓|get a fright
+3000高频词|frown|皱眉|don't frown
+3000高频词|frustrated|沮丧的|feel frustrated
+3000高频词|fulfill|实现|fulfill a dream
+3000高频词|fully|完全地|fully booked
+3000高频词|furious|狂怒的|furious with
+3000高频词|gadget|小玩意|a new gadget
+3000高频词|gallery|画廊|art gallery
+3000高频词|gang|帮派；一伙|the whole gang
+3000高频词|garbage|垃圾|take out the garbage
+3000高频词|gear|装备；齿轮|camping gear
+3000高频词|gene|基因|good genes
+3000高频词|generation|一代|young generation
+3000高频词|genius|天才|you're a genius
+3000高频词|genuine|真正的|genuine leather
+3000高频词|geography|地理|geography class
+3000高频词|germ|细菌|kill germs
+3000高频词|giggle|咯咯笑|giggle a lot
+3000高频词|glow|发光|glow in the dark
+3000高频词|goat|山羊|a white goat
+3000高频词|goodness|天哪；善良|my goodness
+3000高频词|goods|商品|buy goods
+3000高频词|goose|鹅|a wild goose
+3000高频词|gorgeous|极好的|you look gorgeous
+3000高频词|graceful|优雅的|a graceful dancer
+3000高频词|gradually|逐渐地|gradually better
+3000高频词|grammar|语法|English grammar
+3000高频词|grandchild|孙子女|my grandchild
+3000高频词|grandparent|祖父母|visit grandparents
+3000高频词|grant|授予|take for granted
+3000高频词|grasp|抓住|grasp the idea
+3000高频词|grave|坟墓|visit the grave
+3000高频词|gravity|重力|gravity
+3000高频词|grey|灰色的|grey hair
+3000高频词|grin|咧嘴笑|a big grin
+3000高频词|growth|成长|personal growth
+3000高频词|guarantee|保证|I guarantee it
+3000高频词|guidance|指导|thanks for your guidance
+3000高频词|gum|口香糖|chew gum
+3000高频词|habitat|栖息地|natural habitat
+3000高频词|haircut|理发|get a haircut
+3000高频词|hairstyle|发型|a new hairstyle
+3000高频词|hallway|走廊|in the hallway
+3000高频词|ham|火腿|ham sandwich
+3000高频词|handful|一把|a handful of
+3000高频词|handkerchief|手帕|a white handkerchief
+3000高频词|handwriting|笔迹|nice handwriting
+3000高频词|handy|方便的|come in handy
+3000高频词|happiness|幸福|true happiness
+3000高频词|harbor|港口|in the harbor
+3000高频词|hardware|硬件|computer hardware
+3000高频词|hardworking|勤奋的|a hardworking student
+3000高频词|harmony|和谐|in harmony
+3000高频词|haste|匆忙|in haste
+3000高频词|hatch|孵化|hatch eggs
+3000高频词|haunted|闹鬼的|a haunted house
+3000高频词|hay|干草|make hay
+3000高频词|hazard|危险|fire hazard
+3000高频词|headquarters|总部|company headquarters
+3000高频词|heap|堆|a heap of
+3000高频词|heartbeat|心跳|in a heartbeat
+3000高频词|hedge|树篱|trim the hedge
+3000高频词|heel|脚跟|high heels
+3000高频词|hesitate|犹豫|don't hesitate
+3000高频词|hidden|隐藏的|a hidden place
+3000高频词|highlight|亮点；突出|the highlight
+3000高频词|hint|提示|give me a hint
+3000高频词|hip|臀部|hip hop
+3000高频词|historic|有历史意义的|a historic day
+3000高频词|hockey|曲棍球|ice hockey
+3000高频词|homeless|无家可归的|homeless people
+3000高频词|homesick|想家的|feel homesick
+3000高频词|honestly|说实话|honestly speaking
+3000高频词|honeymoon|蜜月|on honeymoon
+3000高频词|hopeful|有希望的|stay hopeful
+3000高频词|hopeless|没希望的|a hopeless case
+3000高频词|horizon|地平线|on the horizon
+3000高频词|horn|喇叭；角|honk the horn
+3000高频词|hostel|旅社|youth hostel
+3000高频词|hostess|女主人|the hostess
+3000高频词|housewife|家庭主妇|a busy housewife
+3000高频词|housing|住房|housing price
+3000高频词|humble|谦虚的|stay humble
+3000高频词|hurricane|飓风|a strong hurricane
+3000高频词|hut|小屋|a small hut
+3000高频词|hydrogen|氢|hydrogen car
+3000高频词|hygiene|卫生|personal hygiene
+3000高频词|icy|冰冷的|icy roads
+3000高频词|identify|识别|identify the problem
+3000高频词|idiom|习语|an English idiom
+3000高频词|idle|闲置的|stay idle
+3000高频词|illegal|非法的|it's illegal
+3000高频词|imitate|模仿|imitate me
+3000高频词|immediately|立即|come immediately
+3000高频词|immigrant|移民|an immigrant
+3000高频词|impact|影响|a big impact
+3000高频词|impatient|不耐烦的|don't be impatient
+3000高频词|import|进口|import goods
+3000高频词|impression|印象|first impression
+3000高频词|incident|事件|an incident
+3000高频词|indicate|表明|indicate that
+3000高频词|individual|个人|each individual
+3000高频词|infant|婴儿|an infant
+3000高频词|infection|感染|ear infection
+3000高频词|influence|影响|a good influence
+3000高频词|inform|通知|inform me
+3000高频词|ingredient|原料|main ingredients
+3000高频词|inherit|继承|inherit money
+3000高频词|initial|最初的|initial plan
+3000高频词|injury|伤|a knee injury
+3000高频词|inner|内部的|inner peace
+3000高频词|input|输入|your input
+3000高频词|inquire|询问|inquire about
+3000高频词|install|安装|install the app
+3000高频词|instance|例子|for instance
+3000高频词|institute|学院|research institute
+3000高频词|intense|强烈的|intense heat
+3000高频词|interior|内部的|interior design
+3000高频词|interrupt|打断|sorry to interrupt
+3000高频词|interval|间隔|at intervals
+3000高频词|investigate|调查|investigate the case
+3000高频词|invisible|看不见的|invisible man
+3000高频词|irritate|激怒|irritate me
+3000高频词|itch|痒|an itch
+3000高频词|jazz|爵士乐|jazz music
+3000高频词|jelly|果冻|jelly beans
+3000高频词|jewel|宝石|a precious jewel
+3000高频词|jogging|慢跑|go jogging
+3000高频词|joint|关节；联合的|joint account
+3000高频词|journal|日志；期刊|keep a journal
+3000高频词|juicy|多汁的|a juicy steak
+3000高频词|junior|年少的；初级的|junior high
+3000高频词|justice|正义|justice for all
+3000高频词|kangaroo|袋鼠|a jumping kangaroo
+3000高频词|keen|热衷的|keen on sports
+3000高频词|ketchup|番茄酱|fries with ketchup
+3000高频词|kidney|肾|kidney beans
+3000高频词|kilogram|千克|two kilograms
+3000高频词|kilometer|公里|five kilometers
+3000高频词|kindness|善良|thank you for your kindness
+3000高频词|kit|成套工具|first aid kit
+3000高频词|kitten|小猫|a cute kitten
+3000高频词|knot|结|tie a knot
+3000高频词|koala|考拉|a cute koala
+3000高频词|lab|实验室|science lab
+3000高频词|labor|劳动|hard labor
+3000高频词|lace|鞋带；蕾丝|tie your laces
+3000高频词|landscape|风景|a beautiful landscape
+3000高频词|lantern|灯笼|Lantern Festival
+3000高频词|largely|主要地|largely true
+3000高频词|laser|激光|laser light
+3000高频词|lately|最近|lately I'm busy
+3000高频词|latest|最新的|the latest news
+3000高频词|launch|发布|launch a product
+3000高频词|leak|泄漏|a gas leak
+3000高频词|lean|倚靠|lean on me
+3000高频词|leftover|剩菜|eat leftovers
+3000高频词|legal|合法的|legal age
+3000高频词|legend|传奇|a living legend
+3000高频词|leisure|闲暇|leisure time
+3000高频词|lens|镜头|camera lens
+3000高频词|leopard|豹|a fast leopard
+3000高频词|liberty|自由|Statue of Liberty
+3000高频词|lifeguard|救生员|ask the lifeguard
+3000高频词|lifetime|一生|once in a lifetime
+3000高频词|likely|可能的|most likely
+3000高频词|limb|四肢|arms and limbs
+3000高频词|linen|亚麻|linen shirt
+3000高频词|lipstick|口红|red lipstick
+3000高频词|listener|听众|a good listener
+3000高频词|litter|乱丢垃圾|no littering
+3000高频词|lively|活泼的|a lively party
+3000高频词|liver|肝|fried liver
+3000高频词|load|装载；负担|a heavy load
+3000高频词|lobster|龙虾|lobster dinner
+3000高频词|locate|位于|located in
+3000高频词|log|原木；日志|log in
+3000高频词|logical|合乎逻辑的|a logical answer
+3000高频词|lollipop|棒棒糖|a big lollipop
+3000高频词|loudly|大声地|speak loudly
+3000高频词|lounge|休息室|airport lounge
+3000高频词|lover|爱人|music lover
+3000高频词|lung|肺|lung cancer
+3000高频词|lyrics|歌词|song lyrics
+3000高频词|yawn|打哈欠|yawn loudly
+3000高频词|zebra|斑马|zebra crossing
+3000高频词|zipper|拉链|zip the zipper
+3000高频词|yogurt|酸奶|strawberry yogurt
+3000高频词|zoom|缩放；快速移动|zoom in
+
+`;
+const NAMES=["200高频词","500高频词","1000高频词","2000高频词","3000高频词"];
+const W=NAMES.map(()=>[]);RAW.split("\n").forEach(l=>{const p=l.trim().split("|");const t=NAMES.indexOf(p[0]);if(t>=0&&p[1])W[t].push({w:p[1],c:p[2]||"",p:p[3]||""})});
+const K="vocab3000_v1";
+let S=JSON.parse(localStorage.getItem(K)||"null")||{learned:{},hard:[],pos:[0,0,0,0,0],tier:0};
+const save=()=>localStorage.setItem(K,JSON.stringify(S));
+const key=(t,i)=>t+"_"+i;
+function speak(txt){if(!window.speechSynthesis){alert("当前浏览器不支持发音");return}
+speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(txt);u.lang="en-US";u.rate=0.85;
+const v=speechSynthesis.getVoices().find(v=>/en[-_]US/i.test(v.lang));if(v)u.voice=v;speechSynthesis.speak(u)}
+const $=id=>document.getElementById(id);
+document.querySelectorAll("nav button").forEach(b=>b.onclick=()=>{
+document.querySelectorAll("nav button").forEach(x=>x.classList.toggle("on",x===b));
+document.querySelectorAll(".sec").forEach(x=>x.classList.toggle("on",x.id===b.dataset.s));
+if(b.dataset.s==="prog")renderProg();if(b.dataset.s==="hard"){hi=0;renderHard()}if(b.dataset.s==="study")renderCard()});
+function renderTiers(){$("tiers").innerHTML=NAMES.map((n,i)=>`<button class="${i===S.tier?"on":""}" data-i="${i}">${n}（${W[i].length}）</button>`).join("");
+$("tiers").querySelectorAll("button").forEach(b=>b.onclick=()=>{S.tier=+b.dataset.i;save();renderTiers();renderCard()})}
+const isHard=(t,i)=>S.hard.includes(key(t,i));
+function renderCard(){if(!W[S.tier].length){$("card").innerHTML="<div class='empty'>本级别暂无数据，请检查是否已粘贴单词数据</div>";$("info").textContent="";return}
+if(S.pos[S.tier]>=W[S.tier].length)S.pos[S.tier]=0;const t=S.tier,i=S.pos[t],o=W[t][i],k=key(t,i),L=!!S.learned[k],H=isHard(t,i);
+$("card").innerHTML=`${L?'<span class="tag l">✔ 已学习</span>':""}${H?'<span class="tag h">★ 难词</span>':""}
+<div class="word" id="wd">${o.w}</div><div class="spk">🔊 点击单词发音</div>
+<div class="cn">${o.c}</div><div class="ph" id="ph">💬 ${o.p} <small>🔊</small></div>
+<div class="btns"><button class="b1" id="prev">◀ 上一个</button>
+<button class="b2 ${L?"done":""}" id="lb">${L?"✔ 已学习（点击取消）":"✅ 标记已学习"}</button>
+<button class="b3 ${H?"done":""}" id="hb">${H?"★ 已收藏（点击取消）":"☆ 收藏难词"}</button>
+<button class="b4" id="next">下一个 ▶</button></div>`;
+$("wd").onclick=()=>speak(o.w);$("ph").onclick=()=>speak(o.p);
+$("prev").onclick=()=>move(-1);$("next").onclick=()=>move(1);
+$("lb").onclick=()=>{if(L)delete S.learned[k];else{S.learned[k]=1;save();move(1);return}save();renderCard()};
+$("hb").onclick=()=>{if(H)S.hard=S.hard.filter(x=>x!==k);else S.hard.push(k);save();renderCard()};
+const n=W[t].filter((_,j)=>S.learned[key(t,j)]).length;
+$("info").textContent=`${NAMES[t]}：第 ${i+1} / ${W[t].length} 个 ｜ 本级已学 ${n} 个 ｜ 难词库共 ${S.hard.length} 个`;
+$("jn").max=W[t].length}
+function move(d){const t=S.tier,N=W[t].length;let i=S.pos[t];
+for(let c=0;c<N;c++){i=(i+d+N)%N;if(!$("skip").checked||!S.learned[key(t,i)])break}
+S.pos[t]=i;save();renderCard()}
+$("jb").onclick=()=>{const t=S.tier,v=parseInt($("jn").value);if(v>=1&&v<=W[t].length){S.pos[t]=v-1;save();renderCard()}};
+$("rnd").onclick=()=>{const t=S.tier;S.pos[t]=Math.floor(Math.random()*W[t].length);save();renderCard()};
+document.addEventListener("keydown",e=>{if(!$("study").classList.contains("on")||e.target.tagName==="INPUT")return;
+if(e.key==="ArrowLeft")move(-1);if(e.key==="ArrowRight")move(1);if(e.key===" "){e.preventDefault();speak(W[S.tier][S.pos[S.tier]].w)}});
+function renderProg(){let tot=0,all=0;let h=W.map((a,t)=>{if(!a.length)return "";const n=a.filter((_,j)=>S.learned[key(t,j)]).length;tot+=n;all+=a.length;const p=(n/a.length*100).toFixed(1);
+return `<div class="prog"><div class="t"><b>${NAMES[t]}</b><span>已学 ${n} / ${a.length}（${p}%）</span></div><div class="bar"><i style="width:${p}%"></i></div></div>`}).join("");
+$("progBox").innerHTML=`<div class="sum">总进度：已学 <b>${tot}</b> / ${all} 个（${all?(tot/all*100).toFixed(1):0}%） ｜ 难词库：<b>${S.hard.length}</b> 个</div>${h}
+<div style="text-align:center"><button class="b1" style="border:none;padding:8px 16px;border-radius:8px;cursor:pointer" id="rst">重置全部学习记录</button></div>`;
+$("rst").onclick=()=>{if(confirm("确定清空所有学习记录和难词库？")){S={learned:{},hard:[],pos:[0,0,0,0,0],tier:0};save();renderProg()}}}
+let hi=0;
+function renderHard(){if(!S.hard.length){$("hardBox").innerHTML='<div class="empty">🎉 难词词库为空<br><br>在“单词学习”中点击“☆ 收藏难词”即可加入</div>';return}
+if(hi>=S.hard.length)hi=0;const k=S.hard[hi],[t,i]=k.split("_").map(Number),o=W[t]&&W[t][i];if(!o){S.hard.splice(hi,1);save();renderHard();return}
+$("hardBox").innerHTML=`<div class="info">难词学习：第 ${hi+1} / ${S.hard.length} 个</div>
+<div class="card"><span class="tag h">${NAMES[t]}</span><div class="word" id="hw">${o.w}</div><div class="spk">🔊 点击单词发音</div>
+<div class="cn" id="hc" style="cursor:pointer">👀 点击显示中文</div><div class="ph" id="hp">💬 ${o.p} <small>🔊</small></div>
+<div class="btns"><button class="b1" id="hpv">◀ 上一个</button><button class="b2" id="hm">✅ 已掌握（移出难词库）</button><button class="b4" id="hn">下一个 ▶</button></div></div>
+<div class="list">全部难词（点击跳转）：<br>${S.hard.map((x,j)=>{const[a,b]=x.split("_").map(Number);return `<span data-j="${j}">${W[a][b].w}</span>`}).join("")}</div>`;
+$("hw").onclick=()=>speak(o.w);$("hp").onclick=()=>speak(o.p);$("hc").onclick=()=>$("hc").textContent=o.c;
+$("hpv").onclick=()=>{hi=(hi-1+S.hard.length)%S.hard.length;renderHard()};$("hn").onclick=()=>{hi=(hi+1)%S.hard.length;renderHard()};
+$("hm").onclick=()=>{S.hard.splice(hi,1);S.learned[k]=1;save();renderHard()};
+document.querySelectorAll(".list span").forEach(s=>s.onclick=()=>{hi=+s.dataset.j;renderHard()})}
+if(window.speechSynthesis)speechSynthesis.onvoiceschanged=()=>{};
+renderTiers();renderCard();
+</script>
+</body>
+</html>
